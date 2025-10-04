@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import '/widgets/backbutton.dart';
 
 class SignInScreen extends StatelessWidget {
   const SignInScreen({super.key});
@@ -25,34 +26,19 @@ class SignInScreen extends StatelessWidget {
               ),
             ),
           ),
-          // back button top left
-            Positioned(
-            top: size.height * 0.04, 
-            left: size.width * 0.06,
-            child: SizedBox(
-              width: size.width * 0.079,
-              height: size.width * 0.079,
-            child: Center(
-              child: SvgPicture.asset(
-                'assets/icons/back.svg',
-                width: size.width * 0.022,
-                height: size.height * 0.0207,
-                semanticsLabel: 'back button',
-                ),
-              ),
-            ),
-          ),
+        // back button top left
+          const BackButtonWidget(),
         // getting started text
-        Positioned(
-          top: size.height * 0.134,
-          left: size.width * 0.08,
-          child: Text('Welcome back!', textAlign: TextAlign.left, style: TextStyle(
-          color: Color.fromRGBO(0, 0, 0, 1),
-          fontFamily: 'Poppins',
-          fontSize: size.width * 0.06,
-          letterSpacing: 0,
-          fontWeight: FontWeight.normal,
-          height: 1
+            Positioned(
+              top: size.height * 0.134,
+              left: size.width * 0.08,
+              child: Text('Welcome back!', textAlign: TextAlign.left, style: TextStyle(
+              color: Color.fromRGBO(0, 0, 0, 1),
+              fontFamily: 'Poppins',
+              fontSize: size.width * 0.06,
+              letterSpacing: 0,
+              fontWeight: FontWeight.normal,
+              height: 1
       ),
       )
         ),
@@ -263,8 +249,8 @@ class SignInScreen extends StatelessWidget {
     ),
     // remember me checkbox
     Positioned(
-      top: 533,
-      left: 34,
+      top: size.height * 0.631,
+      left: size.width * 0.087,
       child: SizedBox(
         width: 24,
         height: 24,
@@ -281,8 +267,8 @@ class SignInScreen extends StatelessWidget {
     ),
     // Remember me
     Positioned(
-        top: size.height * 0.635,
-        left: size.width * 0.159,
+        top: size.height * 0.639,
+        left: size.width * 0.172,
         child:  Text('Remember me', textAlign: TextAlign.left, style: TextStyle(
         color: Color.fromRGBO(0, 0, 0, 1).withValues(alpha: 0.69),
         fontFamily: 'Poppins',

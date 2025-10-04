@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import '/widgets/backbutton.dart';
 
 class GettingStartedScreen extends StatelessWidget {
   const GettingStartedScreen({super.key});
@@ -25,23 +26,8 @@ class GettingStartedScreen extends StatelessWidget {
               ),
             ),
           ),
-          // back button top left
-            Positioned(
-            top: size.height * 0.04, 
-            left: size.width * 0.06,
-            child: SizedBox(
-              width: size.width * 0.079,
-              height: size.width * 0.079,
-            child: Center(
-              child: SvgPicture.asset(
-                'assets/icons/back.svg',
-                width: size.width * 0.022,
-                height: size.height * 0.0207,
-                semanticsLabel: 'back button',
-                ),
-              ),
-            ),
-          ),
+        // back button top left
+          const BackButtonWidget(),
         // getting started text
         Positioned(
           top: size.height * 0.134,
