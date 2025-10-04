@@ -21,10 +21,18 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  flutter_native_splash: ^2.4.6
 
   flutter_lints: ^5.0.0
 
-
+flutter_native_splash:
+  color: "#A3DDA6"
+  image: assets/images/recyclens.png
+  android: true
+  ios: true
+  web: false
+  android_gravity: center
+  ios_content_mode: center
 
 # The following section is specific to Flutter packages.
 flutter:
