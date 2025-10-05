@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import '/widgets/backbutton.dart';
+import '/widgets/checkbox.dart';
 
 class SignInScreen extends StatelessWidget {
   const SignInScreen({super.key});
@@ -248,25 +249,18 @@ class SignInScreen extends StatelessWidget {
       ),
     ),
     // remember me checkbox
-    Positioned(
+      Positioned(
       top: size.height * 0.631,
       left: size.width * 0.087,
-      child: SizedBox(
-        width: 24,
-        height: 24,
-        child: Center(
-          child: Opacity(
-            opacity: 0.46,
-            child: SvgPicture.asset(
-          'assets/icons/checkbox.svg',
-          semanticsLabel: 'checkbox'
-            ),
-          ),
-        ),
+      child: AnimatedSvgCheckbox(
+        size: size.width * 0.0615,
+        initialValue: false,
+        uncheckedAsset: 'assets/icons/checkbox.svg',
+        checkedAsset: 'assets/icons/checkbox_checked.svg',
       ),
     ),
-    // Remember me
-    Positioned(
+        // Remember me
+        Positioned(
         top: size.height * 0.639,
         left: size.width * 0.172,
         child:  Text('Remember me', textAlign: TextAlign.left, style: TextStyle(

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import '/widgets/backbutton.dart';
+import '/widgets/checkbox.dart';
 
 class GettingStartedScreen extends StatelessWidget {
   const GettingStartedScreen({super.key});
@@ -288,7 +289,7 @@ class GettingStartedScreen extends StatelessWidget {
         ),
       ),
     ),
-    // remember me checkbox
+    // remember me 
     Positioned(
     top: size.height * 0.686,
     left: size.width * 0.087,
@@ -310,23 +311,15 @@ class GettingStartedScreen extends StatelessWidget {
                   ),
                 )
               ),
-          Positioned(
+        // remember me checkbox
+         Positioned(
           top: 0,
           left: 0,
-          child: SizedBox(
-            width: size.width * 0.0615,
-            height: size.width * 0.0615,
-            child: Center(
-              child: Opacity(
-                opacity: 0.46,
-                child: SvgPicture.asset(
-                  'assets/icons/checkbox.svg',
-                  width: size.width * 0.0442,
-                  height: size.width * 0.0442,
-                  semanticsLabel: 'checkbox icon',
-                      ),
-                    ),
-                  ),
+          child: AnimatedSvgCheckbox(
+            size: size.width * 0.0615,
+            initialValue: false,
+            uncheckedAsset: 'assets/icons/checkbox.svg',
+            checkedAsset: 'assets/icons/checkbox_checked.svg',
                 ),
               ),
             ],
