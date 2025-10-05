@@ -1,60 +1,43 @@
 name: student_project_lab_initiative_grp2
-description: "A new Flutter project."
-# The following line prevents the package from being accidentally published to
-# pub.dev using `flutter pub publish`. This is preferred for private packages.
-publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+description: A Flutter app that scans recyclable items and rewards users for recycling.
+publish_to: 'none' # Remove this line if you plan to publish to pub.dev
 
 version: 1.0.0+1
 
 environment:
-  sdk: ^3.9.2
-
+  sdk: ">=3.0.0 <4.0.0"
 
 dependencies:
   flutter:
     sdk: flutter
 
-  cupertino_icons: ^1.0.8
-  flutter_svg: ^2.0.10+1
-  device_preview: ^1.1.0
+  # Core Flutter packages
+  cupertino_icons: ^1.0.6
+
+  # Camera access
+  camera: ^0.10.5+5
+
+  # Path provider (for saving image files)
+  path_provider: ^2.1.2
+
+  # Google ML Kit - Image Labeling (for classifying recyclable items)
+  google_mlkit_image_labeling: ^0.11.0
+
+  # Shared preferences (for saving user points/rewards)
+  shared_preferences: ^2.2.2
+
+  # State management (optional but helpful)
+  provider: ^6.1.1
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_native_splash: ^2.4.6
-
   flutter_lints: ^5.0.0
 
-flutter_native_splash:
-  color: "#A3DDA6"
-  image: assets/images/recyclens.png
-  android: true
-  ios: true
-  web: false
-  android_gravity: center
-  ios_content_mode: center
-
-# The following section is specific to Flutter packages.
 flutter:
-
-  # The following line ensures that the Material Icons font is
-  # included with your application, so that you can use the icons in
-  # the material Icons class.
   uses-material-design: true
 
-
   assets:
-    - assets/icons/
     - assets/images/
+    - assets/icons/
 
-
-  fonts:
-    - family: Poppins
-      fonts:
-        - asset: assets/fonts/Poppins-Regular.ttf
-        - asset: assets/fonts/Poppins-SemiBold.ttf
-          weight: 600
-        - asset: assets/fonts/Poppins-Bold.ttf
-          weight: 700
-
-  
