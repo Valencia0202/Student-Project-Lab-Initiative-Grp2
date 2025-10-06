@@ -41,3 +41,20 @@ flutter:
     - assets/images/
     - assets/icons/
 
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/logo.png
+    - assets/splash_background.png
+
+# Fonts
+flutter:
+  fonts:
+    - family: Poppins
+      fonts:
+        - asset: assets/fonts/Poppins-Regular.ttf
+        - asset: assets/fonts/Poppins-SemiBold.ttf
+          weight: 600
+    - family: Roboto
+      fonts:
+        - asset: assets/fonts/Roboto-Regular.ttf
