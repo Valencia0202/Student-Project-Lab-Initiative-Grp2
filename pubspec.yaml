@@ -1,14 +1,10 @@
 name: student_project_lab_initiative_grp2
-description: "A new Flutter project."
-# The following line prevents the package from being accidentally published to
-# pub.dev using `flutter pub publish`. This is preferred for private packages.
-publish_to: 'none' # Remove this line if you wish to publish to pub.dev
-
+description: "Rebuilt UI from Figma"
+publish_to: 'none'
 version: 1.0.0+1
 
 environment:
-  sdk: ^3.9.2
-
+  sdk: ">=3.0.0 <4.0.0"
 
 dependencies:
   flutter:
@@ -25,28 +21,11 @@ dev_dependencies:
   flutter_native_splash: ^2.4.6
   flutter_lints: ^5.0.0
 
-flutter_native_splash:
-  color: "#A3DDA6"
-  image: assets/images/recyclens.png
-  android: true
-  ios: true
-  web: false
-  android_gravity: center
-  ios_content_mode: center
-
-# The following section is specific to Flutter packages.
 flutter:
-
-  # The following line ensures that the Material Icons font is
-  # included with your application, so that you can use the icons in
-  # the material Icons class.
   uses-material-design: true
 
-
   assets:
-    - assets/icons/
     - assets/images/
-
 
   fonts:
     - family: Poppins
@@ -56,5 +35,3 @@ flutter:
           weight: 600
         - asset: assets/fonts/Poppins-Bold.ttf
           weight: 700
-
-  
