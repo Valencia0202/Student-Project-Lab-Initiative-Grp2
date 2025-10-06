@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import '/widgets/backbutton.dart';
+import '/widgets/backbutton_startscreen.dart';
 import '/widgets/checkbox.dart';
+import '/tools/size_scaling.dart';
 
 class GettingStartedScreen extends StatelessWidget {
   const GettingStartedScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-     final size = MediaQuery.of(context).size;
+    SizeHelper.init(context);
 
     return Scaffold(
       backgroundColor: const Color(0xFFA3DDA6),
@@ -16,10 +17,10 @@ class GettingStartedScreen extends StatelessWidget {
           children: <Widget>[
             // White box for sign up content
             Positioned(
-            top: size.height * 0.1,
+            top: SizeHelper.h(84),
             left: 0,
-            width: size.width,
-            height: size.height * 0.9,
+            width: SizeHelper.width,
+            height: SizeHelper.h(760),
             child: Container(
               decoration: BoxDecoration(
                 color: Color.fromRGBO(251, 251, 251, 1),
@@ -28,28 +29,28 @@ class GettingStartedScreen extends StatelessWidget {
             ),
           ),
         // back button top left
-          const BackButtonWidget(),
+          const BackButtonStartWidget(),
         // getting started text
         Positioned(
-          top: size.height * 0.134,
-          left: size.width * 0.08,
+          top: SizeHelper.h(113),
+          left: SizeHelper.w(31),
           child: Text('Getting started', textAlign: TextAlign.left, style: TextStyle(
           color: Color.fromRGBO(0, 0, 0, 1),
           fontFamily: 'Poppins',
-          fontSize: size.width * 0.06,
+          fontSize: SizeHelper.w(23),
           letterSpacing: 0,
           fontWeight: FontWeight.normal,
           height: 1
-      ),
-      )
+            ),
+          )
         ),
         // google button
         Positioned(
-          top: size.height * 0.218,
-          left: size.width * 0.082,
+          top: SizeHelper.h(184),
+          left: SizeHelper.w(32),
           child: Container(
-            width: size.width * 0.169,
-            height: size.width * 0.169,
+            width: SizeHelper.w(66),
+            height: SizeHelper.w(66),
             decoration: BoxDecoration(
               color : Color.fromRGBO(76, 175, 80, 1),
               borderRadius : BorderRadius.circular(34),
@@ -57,8 +58,8 @@ class GettingStartedScreen extends StatelessWidget {
           child: Center(
             child: SvgPicture.asset(
               'assets/icons/google.svg',
-              width: size.width * 0.0615,
-              height: size.width * 0.0615,
+              width: SizeHelper.w(24),
+              height: SizeHelper.h(27),
               semanticsLabel: 'google icon',
         ),
       ),
@@ -66,11 +67,11 @@ class GettingStartedScreen extends StatelessWidget {
   ),
         // facebook button
          Positioned(
-          top: size.height * 0.218,
-          left: size.width * 0.415,
+          top: SizeHelper.h(184),
+          left: SizeHelper.w(162),
           child: Container(
-            width: size.width * 0.169,
-            height: size.width * 0.169,
+            width: SizeHelper.w(66),
+            height: SizeHelper.w(66),
             decoration: BoxDecoration(
               color : Color.fromRGBO(76, 175, 80, 1),
               borderRadius : BorderRadius.circular(34),
@@ -78,8 +79,8 @@ class GettingStartedScreen extends StatelessWidget {
           child: Center(
             child: SvgPicture.asset(
               'assets/icons/facebook.svg',
-              width: size.width * 0.0615,
-              height: size.width * 0.0615,
+              width: SizeHelper.w(25),
+              height: SizeHelper.w(25),
               semanticsLabel: 'facebook icon',
         ),
       ),
@@ -87,11 +88,11 @@ class GettingStartedScreen extends StatelessWidget {
   ),
         // twitter button
          Positioned(
-          top: size.height * 0.218,
-          left: size.width * 0.749,
+          top: SizeHelper.h(184),
+          left: SizeHelper.w(292),
           child: Container(
-            width: size.width * 0.169,
-            height: size.width * 0.169,
+            width: SizeHelper.w(66),
+            height: SizeHelper.w(66),
             decoration: BoxDecoration(
               color : Color.fromRGBO(76, 175, 80, 1),
               borderRadius : BorderRadius.circular(34),
@@ -99,8 +100,8 @@ class GettingStartedScreen extends StatelessWidget {
           child: Center(
             child: SvgPicture.asset(
               'assets/icons/twitter.svg',
-              width: size.width * 0.0615,
-              height: size.width * 0.0615,
+              width: SizeHelper.w(24.49),
+              height: SizeHelper.w(24.49),
               semanticsLabel: 'twitter icon',
         ),
       ),
@@ -108,40 +109,40 @@ class GettingStartedScreen extends StatelessWidget {
   ),
         // or text
          Positioned(
-         top: size.height * 0.339,
-         left: size.width * 0.087,
-         child: SizedBox(
-          width: size.width * 0.826,
-          height: size.height * 0.024,
-          child: Stack(
-            children: <Widget>[
-              Positioned(
-              top: size.height * 0.007,
-              left: size.width * 0.397,
-                child: Text('or', textAlign: TextAlign.center, style: TextStyle(
-                color: Color.fromRGBO(3, 169, 244, 1),
-                fontFamily: 'Poppins',
-                fontSize: size.width * 0.0333,
-                letterSpacing: 0,
-                fontWeight: FontWeight.normal,
-                height: 1
+          top: SizeHelper.h(286),
+          left: SizeHelper.w(34),
+          child: SizedBox(
+            width: SizeHelper.w(32),
+            height: SizeHelper.h(20),
+            child: Stack(
+              children: <Widget>[
+                Positioned(
+                  top: SizeHelper.h(5.908),
+                  left: SizeHelper.w(154.83),
+                    child: Text('or', textAlign: TextAlign.center, style: TextStyle(
+                    color: Color.fromRGBO(3, 169, 244, 1),
+                    fontFamily: 'Poppins',
+                    fontSize: SizeHelper.w(13),
+                    letterSpacing: 0,
+                    fontWeight: FontWeight.normal,
+                    height: 1
                 ),
               ),
             ),
             Positioned(
-            top: size.height * 0.014,
+            top: SizeHelper.h(12),
             left: 0,
             child: Container(
-              width: size.width * 0.367,
+              width: SizeHelper.w(143),
               height: 0.5,
               color: Color.fromRGBO(3, 169, 244, 1),
               ),
             ),
            Positioned(
-            top: size.height * 0.014,
+            top: SizeHelper.h(12),
             right: 0,
             child: Container(
-              width: size.width * 0.367,
+              width: SizeHelper.w(143),
               height: 0.5,
               color: Color.fromRGBO(3, 169, 244, 1),  
               ),
@@ -152,19 +153,19 @@ class GettingStartedScreen extends StatelessWidget {
     ),
     // email text field
     Positioned(
-    top: size.height * 0.402,
-    left: size.width * 0.087,
+    top: SizeHelper.h(339),
+    left: SizeHelper.w(34),
     child: SizedBox(
-      width: size.width * 0.826,
-      height: size.height * 0.056,
+      width: SizeHelper.w(322),
+      height: SizeHelper.h(47),
       child: Stack(
         children: <Widget>[
           Positioned(
             top: 0,
             left: 0,
             child: Container(
-            width: size.width * 0.826,
-            height: size.height * 0.056,
+            width: SizeHelper.w(322),
+            height: SizeHelper.h(47),
             decoration: BoxDecoration(
               borderRadius : BorderRadius.circular(17),
               color : Color.fromRGBO(220, 255, 222, 1),
@@ -172,16 +173,14 @@ class GettingStartedScreen extends StatelessWidget {
         ),
       ),
       Positioned(
-        top: size.height * 0.0166,
-        left: size.width * 0.033,
+        top: SizeHelper.h(14),
+        left: SizeHelper.w(13),
         child: SizedBox(
-        width: size.width * 0.0513,
-        height: size.width * 0.0513,
+          width: SizeHelper.w(20),
+          height: SizeHelper.w(20),
           child: Center(
             child: SvgPicture.asset(
               'assets/icons/email.svg',
-              width: size.width * 0.0427,
-              height: size.height * 0.015,
               semanticsLabel: 'email icon',
                   ),
                 ),
@@ -193,19 +192,19 @@ class GettingStartedScreen extends StatelessWidget {
     ),
     // username text field
     Positioned(
-    top: size.height * 0.496,
-    left: size.width * 0.087,
+    top: SizeHelper.h(419),
+    left: SizeHelper.w(34),
     child: SizedBox(
-      width: size.width * 0.826,
-      height: size.height * 0.056,
+      width: SizeHelper.w(322),
+      height: SizeHelper.h(47),
       child: Stack(
         children: <Widget>[
           Positioned(
             top: 0,
             left: 0,
             child: Container(
-            width: size.width * 0.826,
-            height: size.height * 0.056,
+            width: SizeHelper.w(322),
+            height: SizeHelper.h(47),
             decoration: BoxDecoration(
               borderRadius : BorderRadius.circular(17),
               color : Color.fromRGBO(220, 255, 222, 1),
@@ -213,16 +212,14 @@ class GettingStartedScreen extends StatelessWidget {
         ),
       ),
       Positioned(
-        top: size.height * 0.0166,
-        left: size.width * 0.033,
+        top: SizeHelper.h(14),
+        left: SizeHelper.w(13),
         child: SizedBox(
-        width: size.width * 0.0513,
-        height: size.width * 0.0513,
+        width: SizeHelper.w(20),
+        height: SizeHelper.w(20),
           child: Center(
             child: SvgPicture.asset(
               'assets/icons/profile.svg',
-              width: size.width * 0.0337,
-              height: size.height * 0.017,
               semanticsLabel: 'profile icon',
                   ),
                 ),
@@ -234,53 +231,49 @@ class GettingStartedScreen extends StatelessWidget {
     ),
     // password text field
     Positioned(
-    top: size.height * 0.591,
-    left: size.width * 0.087,
+    top: SizeHelper.h(499),
+    left: SizeHelper.w(34),
     child: SizedBox(
-      width: size.width * 0.826,
-      height: size.height * 0.056,
+      width: SizeHelper.w(322),
+      height: SizeHelper.h(47),
       child: Stack(
         children: <Widget>[
           Positioned(
             top: 0,
             left: 0,
             child: Container(
-            width: size.width * 0.826,
-            height: size.height * 0.056,
-            decoration: BoxDecoration(
-              borderRadius : BorderRadius.circular(17),
-              color : Color.fromRGBO(220, 255, 222, 1),
+              width: SizeHelper.w(322),
+              height: SizeHelper.h(47),
+              decoration: BoxDecoration(
+                borderRadius : BorderRadius.circular(17),
+                color : Color.fromRGBO(220, 255, 222, 1),
                 ),
               ),
             ),
       Positioned(
-        top: size.height * 0.0166,
-        left: size.width * 0.033,
+        top: SizeHelper.h(14),
+        left: SizeHelper.w(13),
         child: SizedBox(
-        width: size.width * 0.0513,
-        height: size.height * 0.0249,
+          width: SizeHelper.w(20),
+          height: SizeHelper.h(21),
           child: Center(
             child: SvgPicture.asset(
               'assets/icons/password.svg',
-              width: size.width * 0.0342,
-              height: size.height * 0.0207,
               semanticsLabel: 'password icon',
                   ),
                 ),
               ),
             ),
       Positioned(
-        top: size.height * 0.0213,
-        left: size.width * 0.759,
+        top: SizeHelper.h(18),
+        left: SizeHelper.w(296),
         child: SizedBox(
-        width: size.width * 0.0359,
-        height: size.width * 0.0359,
-          child: Center(
-            child: SvgPicture.asset(
-              'assets/icons/visible.svg',
-              width: size.width * 0.0359,
-              height: size.height * 0.0124,
-                    semanticsLabel: 'visible icon',
+          width: SizeHelper.w(14),
+          height: SizeHelper.h(14),
+            child: Center(
+              child: SvgPicture.asset(
+                'assets/icons/visible.svg',
+                  semanticsLabel: 'visible icon', //TODO: Switch password to visible and invisible (Keona)
                   ),
                 ),
               ),
@@ -291,20 +284,20 @@ class GettingStartedScreen extends StatelessWidget {
     ),
     // remember me 
     Positioned(
-    top: size.height * 0.686,
-    left: size.width * 0.087,
+    top: SizeHelper.h(34),
+    left: SizeHelper.w(579),
     child: SizedBox(
-      width: size.width * 0.354,
-      height: size.height * 0.0284,
+      width: SizeHelper.w(138),
+      height: SizeHelper.h(24),
       child: Stack(
         children: <Widget>[
           Positioned(
-            top: size.height * 0.009,
-            left: size.width * 0.0846,
+            top: SizeHelper.h(4),
+            left: SizeHelper.w(33),
             child: Text('Remember me', textAlign: TextAlign.left, style: TextStyle(
             color: Color.fromRGBO(0, 0, 0, 1).withValues(alpha: 0.69),
             fontFamily: 'Poppins',
-            fontSize: size.width * 0.0282,
+            fontSize: SizeHelper.w(11),
             letterSpacing: 0,
             fontWeight: FontWeight.normal,
             height: 1
@@ -316,7 +309,7 @@ class GettingStartedScreen extends StatelessWidget {
           top: 0,
           left: 0,
           child: AnimatedSvgCheckbox(
-            size: size.width * 0.0615,
+            size: SizeHelper.w(24),
             initialValue: false,
             uncheckedAsset: 'assets/icons/checkbox.svg',
             checkedAsset: 'assets/icons/checkbox_checked.svg',
@@ -328,28 +321,28 @@ class GettingStartedScreen extends StatelessWidget {
       ), 
       // create account button
       Positioned(
-        top: size.height * 0.819,
-        left: size.width * 0.115,
+        top: SizeHelper.h(690.96),
+        left: SizeHelper.w(45),
         child: Container(
-        width: size.width * 0.767,
-        height: size.height * 0.074,
-        decoration: BoxDecoration(
-          borderRadius : BorderRadius.circular(34),
-          color : Color.fromRGBO(76, 175, 80, 1),
-            ), 
+          height: SizeHelper.h(299),
+          width: SizeHelper.w(62.47),
+          decoration: BoxDecoration(
+            borderRadius : BorderRadius.circular(34),
+            color : Color.fromRGBO(76, 175, 80, 1),
+              ), 
             child: Center(
             child: Text('Create account', textAlign: TextAlign.center, style: TextStyle(
             color: Color.fromRGBO(0, 0, 0, 1),
             fontFamily: 'Poppins',
-            fontSize: 16,
-            letterSpacing: 0 /*percentages not used in flutter. defaulting to zero*/,
+            fontSize: SizeHelper.w(16),
+            letterSpacing: 0,
             fontWeight: FontWeight.normal,
             height: 1
+                  ),
+                )
+              ),
             ),
-          )
-        ),
-      ),
-    ),
+          ),
         ],
       ),
     );
