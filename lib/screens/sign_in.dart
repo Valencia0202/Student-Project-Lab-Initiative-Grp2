@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import '/widgets/backbutton.dart';
+import '/widgets/backbutton_startscreen.dart';
 import '/widgets/checkbox.dart';
 
 class SignInScreen extends StatelessWidget {
@@ -28,7 +28,7 @@ class SignInScreen extends StatelessWidget {
             ),
           ),
         // back button top left
-          const BackButtonWidget(),
+          const BackButtonStartWidget(),
         // getting started text
             Positioned(
               top: size.height * 0.134,
