@@ -126,7 +126,7 @@ class ScanningResultsScreen extends StatelessWidget {
                 ),
               ),
             ),
-          // Share button (low prio TODO for backend)
+          // Share button (TODO: low prio for backend, do if have time)
           Positioned(
             top: size.height * 0.764,
             left: size.width * 0.29,
