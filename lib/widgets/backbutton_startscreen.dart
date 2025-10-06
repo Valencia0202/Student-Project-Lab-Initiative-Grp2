@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import '/screens/start_screen.dart';
 
-class BackButtonWidget extends StatelessWidget {
-  const BackButtonWidget({super.key});
+class BackButtonStartWidget extends StatelessWidget {
+  const BackButtonStartWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
