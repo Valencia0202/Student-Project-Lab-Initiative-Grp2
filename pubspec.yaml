@@ -1,7 +1,6 @@
 name: student_project_lab_initiative_grp2
-description: A Flutter app that scans recyclable items and rewards users for recycling.
-publish_to: 'none' # Remove this line if you plan to publish to pub.dev
-
+description: "Rebuilt UI from Figma"
+publish_to: 'none'
 version: 1.0.0+1
 
 environment:
@@ -10,51 +9,24 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-
-  # Core Flutter packages
-  cupertino_icons: ^1.0.6
-
-  # Camera access
-  camera: ^0.10.5+5
-
-  # Path provider (for saving image files)
-  path_provider: ^2.1.2
-
-  # Google ML Kit - Image Labeling (for classifying recyclable items)
-  google_mlkit_image_labeling: ^0.11.0
-
-  # Shared preferences (for saving user points/rewards)
-  shared_preferences: ^2.2.2
-
-  # State management (optional but helpful)
-  provider: ^6.1.1
+  flutter_svg: ^2.0.9  # Add this line for SVG support
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_lints: ^5.0.0
+  flutter_lints: ^2.0.0
 
 flutter:
   uses-material-design: true
 
   assets:
     - assets/images/
-    - assets/icons/
 
-flutter:
-  uses-material-design: true
-  assets:
-    - assets/logo.png
-    - assets/splash_background.png
-
-# Fonts
-flutter:
   fonts:
     - family: Poppins
       fonts:
         - asset: assets/fonts/Poppins-Regular.ttf
         - asset: assets/fonts/Poppins-SemiBold.ttf
           weight: 600
-    - family: Roboto
-      fonts:
-        - asset: assets/fonts/Roboto-Regular.ttf
+        - asset: assets/fonts/Poppins-Bold.ttf
+          weight: 700

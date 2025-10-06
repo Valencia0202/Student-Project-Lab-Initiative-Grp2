@@ -7,6 +7,9 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Use the theme colors safely
+    final theme = CorporateTheme.lightTheme;
+    
     return Scaffold(
       appBar: AppBar(
         title: const Text('Recyclable'),
@@ -22,9 +25,15 @@ class HomePage extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('Welcome back,', style: Theme.of(context).textTheme.bodyMedium),
+                    Text(
+                      'Welcome back,', 
+                      style: Theme.of(context).textTheme.bodyMedium,
+                    ),
                     const SizedBox(height: 8),
-                    Text('Your dashboard', style: Theme.of(context).textTheme.titleLarge),
+                    Text(
+                      'Your dashboard', 
+                      style: Theme.of(context).textTheme.titleLarge,
+                    ),
                     const SizedBox(height: 12),
                     Text(
                       'Overview of recent activity, collection points, and rewards progress.',
@@ -57,17 +66,21 @@ class HomePage extends StatelessWidget {
 
             const SizedBox(height: 16),
 
-            // Stats card
+            // Stats card - FIXED: Using theme color safely
             Card(
               child: ListTile(
                 leading: Container(
                   width: 48,
                   height: 48,
                   decoration: BoxDecoration(
-                    color: CorporateTheme.accentBlue.withOpacity(0.12),
+                    color: CorporateTheme.accentBlue.withOpacity(0.12), // Now this will work
                     borderRadius: BorderRadius.circular(10),
                   ),
-                  child: const Icon(Icons.analytics_outlined, size: 28),
+                  child: Icon(
+                    Icons.analytics_outlined, 
+                    size: 28,
+                    color: CorporateTheme.accentBlue,
+                  ),
                 ),
                 title: const Text('Monthly Collections'),
                 subtitle: const Text('You collected 24 kg this month'),
@@ -84,21 +97,31 @@ class HomePage extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 16),
                 child: Row(
                   children: [
-                    const Icon(Icons.card_giftcard_outlined, size: 36),
+                    Icon(
+                      Icons.card_giftcard_outlined, 
+                      size: 36,
+                      color: CorporateTheme.accentBlue, // Consistent color usage
+                    ),
                     const SizedBox(width: 12),
                     Expanded(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: const [
-                          Text('Rewards Progress', style: TextStyle(fontWeight: FontWeight.w600)),
+                          Text(
+                            'Rewards Progress', 
+                            style: TextStyle(fontWeight: FontWeight.w600)
+                          ),
                           SizedBox(height: 4),
-                          Text('120 pts • 3 vouchers available', style: TextStyle(color: Colors.grey)),
+                          Text(
+                            '120 pts • 3 vouchers available', 
+                            style: TextStyle(color: Colors.grey)
+                          ),
                         ],
                       ),
                     ),
                     ElevatedButton(
                       onPressed: () {
-                        Navigator.pushReplacementNamed(context, '/rewards');
+                        Navigator.pushNamed(context, '/rewards'); // Use pushNamed instead of pushReplacementNamed
                       },
                       child: const Text('View'),
                     )
