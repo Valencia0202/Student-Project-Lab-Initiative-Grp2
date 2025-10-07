@@ -37,7 +37,7 @@ class GettingStartedScreen extends StatelessWidget {
           child: Text('Getting started', textAlign: TextAlign.left, style: TextStyle(
           color: Color.fromRGBO(0, 0, 0, 1),
           fontFamily: 'Poppins',
-          fontSize: SizeHelper.w(23),
+          fontSize: SizeHelper.w(24),
           letterSpacing: 0,
           fontWeight: FontWeight.normal,
           height: 1
@@ -112,7 +112,7 @@ class GettingStartedScreen extends StatelessWidget {
           top: SizeHelper.h(286),
           left: SizeHelper.w(34),
           child: SizedBox(
-            width: SizeHelper.w(32),
+            width: SizeHelper.w(322),
             height: SizeHelper.h(20),
             child: Stack(
               children: <Widget>[
@@ -284,15 +284,15 @@ class GettingStartedScreen extends StatelessWidget {
     ),
     // remember me 
     Positioned(
-    top: SizeHelper.h(34),
-    left: SizeHelper.w(579),
+    top: SizeHelper.h(579),
+    left: SizeHelper.w(34),
     child: SizedBox(
       width: SizeHelper.w(138),
       height: SizeHelper.h(24),
       child: Stack(
         children: <Widget>[
           Positioned(
-            top: SizeHelper.h(4),
+            top: SizeHelper.h(12),
             left: SizeHelper.w(33),
             child: Text('Remember me', textAlign: TextAlign.left, style: TextStyle(
             color: Color.fromRGBO(0, 0, 0, 1).withValues(alpha: 0.69),
@@ -324,8 +324,8 @@ class GettingStartedScreen extends StatelessWidget {
         top: SizeHelper.h(690.96),
         left: SizeHelper.w(45),
         child: Container(
-          height: SizeHelper.h(299),
-          width: SizeHelper.w(62.47),
+          width: SizeHelper.h(299),
+          height: SizeHelper.w(62.47),
           decoration: BoxDecoration(
             borderRadius : BorderRadius.circular(34),
             color : Color.fromRGBO(76, 175, 80, 1),

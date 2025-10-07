@@ -33,7 +33,8 @@ class _LoadingScreenState extends State<LoadingScreen> {
           const CircularProgressIndicator(),
           const SizedBox(height: 12),
           const Text('Loading...'),
-        ]),
+          ]
+        ),
       ),
     );
   }
