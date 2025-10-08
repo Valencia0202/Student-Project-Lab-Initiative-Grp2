@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import '/widgets/backbutton_profile.dart';
 import '/tools/size_scaling.dart';
 
-class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
+class RedeemRewardsScreen extends StatelessWidget {
+  const RedeemRewardsScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +15,7 @@ class HomeScreen extends StatelessWidget {
       body: Stack(
         children: <Widget>[
           // back button
-            
+            const BackButtonProfileWidget(),
           // Redeem rewards text
           Positioned(
             top: SizeHelper.h(39),
@@ -54,7 +55,7 @@ class HomeScreen extends StatelessWidget {
           ),
         Positioned(
           top: SizeHelper.h(125),
-          left: SizeHelper.w(117),
+          left: SizeHelper.w(118),
           child: Text('Your points', textAlign: TextAlign.left, style: TextStyle(
             color: Color.fromRGBO(0, 0, 0, 1),
             fontFamily: 'Poppins',
