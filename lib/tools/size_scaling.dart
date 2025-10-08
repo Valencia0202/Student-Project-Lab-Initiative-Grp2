@@ -1,3 +1,6 @@
+// SizeHelper basically helps scale the size to any phone screen. The value I put inside each Size is the width/height/coord I have in figma, which is the size for iPhone 13/14.
+
+
 import 'package:flutter/material.dart';
 
 class SizeHelper {
