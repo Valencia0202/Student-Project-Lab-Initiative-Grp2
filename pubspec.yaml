@@ -10,13 +10,13 @@ dependencies:
   flutter:
     sdk: flutter
 
-cupertino_icons: ^1.0.8
-flutter_svg: ^2.0.10+1
-device_preview: ^1.1.0
-camera: ^0.11.2
-flutter_polygon: ^0.3.0+2
-http: ^1.2.0
-path:^1.9.0
+  cupertino_icons: ^1.0.8
+  flutter_svg: ^2.0.10+1
+  device_preview: ^1.1.0
+  camera: ^0.11.2
+  flutter_polygon: ^0.3.0+2
+  http: ^1.2.0
+  path: ^1.9.0
 
 
 dev_dependencies:
