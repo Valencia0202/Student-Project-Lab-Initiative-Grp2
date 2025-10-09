@@ -3,8 +3,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import '/widgets/backbutton_profile.dart';
 import '/tools/size_scaling.dart';
 
-class AchievementsScreen extends StatelessWidget {
-  const AchievementsScreen({super.key});
+class AccountScreen extends StatelessWidget {
+  const AccountScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

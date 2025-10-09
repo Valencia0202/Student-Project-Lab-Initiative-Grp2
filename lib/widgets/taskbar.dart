@@ -27,6 +27,7 @@ class Taskbar extends StatelessWidget {
             right: size.width * 0.03,
             child: Container(
               height: size.height * 0.085,
+              width: size.width,
               decoration: BoxDecoration(
                 color: const Color(0xFFA7EFC3),
                 borderRadius: BorderRadius.circular(18),
@@ -81,15 +82,8 @@ class Taskbar extends StatelessWidget {
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
                   color: currentIndex == 1
-                      ? const Color.fromARGB(150, 11, 102, 35)
-                      : const Color(0xFF0B6623),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black.withValues(alpha: 0.25),
-                      blurRadius: 6,
-                      offset: const Offset(0, 3),
-                    ),
-                  ],
+                      ? Color.fromARGB(255, 5, 43, 16)
+                      : Color(0xFF0B6623),
                 ),
                 child: Center(
                   child: SvgPicture.asset(
