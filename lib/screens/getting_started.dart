@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import '/widgets/backbutton_startscreen.dart';
 import '/widgets/checkbox.dart';
+import '/widgets/createaccount_button.dart';
+import '/widgets/textfields.dart';
 import '/tools/size_scaling.dart';
 
 class GettingStartedScreen extends StatelessWidget {
@@ -153,161 +155,44 @@ class GettingStartedScreen extends StatelessWidget {
     ),
     // email text field
     Positioned(
-    top: SizeHelper.h(339),
-    left: SizeHelper.w(34),
-    child: SizedBox(
-      width: SizeHelper.w(322),
-      height: SizeHelper.h(47),
-      child: Stack(
-        children: <Widget>[
-          Positioned(
-            top: 0,
-            left: 0,
-            child: Container(
-            width: SizeHelper.w(322),
-            height: SizeHelper.h(47),
-            decoration: BoxDecoration(
-              borderRadius : BorderRadius.circular(17),
-              color : Color.fromRGBO(220, 255, 222, 1),
-          ),
-        ),
-      ),
-      Positioned(
-        top: SizeHelper.h(14),
-        left: SizeHelper.w(13),
-        child: SizedBox(
-          width: SizeHelper.w(20),
-          height: SizeHelper.w(20),
-          child: Center(
-            child: SvgPicture.asset(
-              'assets/icons/email.svg',
-              semanticsLabel: 'email icon',
-                  ),
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
+      top: SizeHelper.h(339),
+      height: SizeHelper.w(34),
+      child: EmailField(),
     ),
     // username text field
     Positioned(
-    top: SizeHelper.h(419),
-    left: SizeHelper.w(34),
-    child: SizedBox(
-      width: SizeHelper.w(322),
-      height: SizeHelper.h(47),
-      child: Stack(
-        children: <Widget>[
-          Positioned(
-            top: 0,
-            left: 0,
-            child: Container(
-            width: SizeHelper.w(322),
-            height: SizeHelper.h(47),
-            decoration: BoxDecoration(
-              borderRadius : BorderRadius.circular(17),
-              color : Color.fromRGBO(220, 255, 222, 1),
-          ),
-        ),
-      ),
-      Positioned(
-        top: SizeHelper.h(14),
-        left: SizeHelper.w(13),
-        child: SizedBox(
-        width: SizeHelper.w(20),
-        height: SizeHelper.w(20),
-          child: Center(
-            child: SvgPicture.asset(
-              'assets/icons/profile.svg',
-              semanticsLabel: 'profile icon',
-                  ),
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
+      top: SizeHelper.h(419),
+      height: SizeHelper.w(34),
+      child: EmailField(),
     ),
     // password text field
-    Positioned(
-    top: SizeHelper.h(499),
-    left: SizeHelper.w(34),
-    child: SizedBox(
-      width: SizeHelper.w(322),
-      height: SizeHelper.h(47),
-      child: Stack(
-        children: <Widget>[
-          Positioned(
-            top: 0,
-            left: 0,
-            child: Container(
-              width: SizeHelper.w(322),
-              height: SizeHelper.h(47),
-              decoration: BoxDecoration(
-                borderRadius : BorderRadius.circular(17),
-                color : Color.fromRGBO(220, 255, 222, 1),
-                ),
-              ),
-            ),
-      Positioned(
-        top: SizeHelper.h(14),
-        left: SizeHelper.w(13),
-        child: SizedBox(
-          width: SizeHelper.w(20),
-          height: SizeHelper.h(21),
-          child: Center(
-            child: SvgPicture.asset(
-              'assets/icons/password.svg',
-              semanticsLabel: 'password icon',
-                  ),
-                ),
-              ),
-            ),
-      Positioned(
-        top: SizeHelper.h(18),
-        left: SizeHelper.w(296),
-        child: SizedBox(
-          width: SizeHelper.w(14),
-          height: SizeHelper.h(14),
-            child: Center(
-              child: SvgPicture.asset(
-                'assets/icons/visible.svg',
-                  semanticsLabel: 'visible icon', //TODO: Switch password to visible and invisible (Keona)
-                  ),
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
+   Positioned(
+      top: SizeHelper.h(499),
+      height: SizeHelper.w(34), // TODO: invisible/visible still WIP
+      child: EmailField(),
     ),
     // remember me 
-    Positioned(
-    top: SizeHelper.h(579),
-    left: SizeHelper.w(34),
-    child: SizedBox(
-      width: SizeHelper.w(138),
-      height: SizeHelper.h(24),
-      child: Stack(
-        children: <Widget>[
-          Positioned(
-            top: SizeHelper.h(12),
-            left: SizeHelper.w(33),
-            child: Text('Remember me', textAlign: TextAlign.left, style: TextStyle(
+      Positioned(
+        top: SizeHelper.h(583),
+        left: SizeHelper.w(67),
+        child: SizedBox(
+          width: SizeHelper.w(109),
+          height: SizeHelper.h(16),
+          child: Text('Remember me', textAlign: TextAlign.left, style: TextStyle(
             color: Color.fromRGBO(0, 0, 0, 1).withValues(alpha: 0.69),
             fontFamily: 'Poppins',
             fontSize: SizeHelper.w(11),
             letterSpacing: 0,
             fontWeight: FontWeight.normal,
             height: 1
-                  ),
-                )
               ),
+            )
+          ),
+        ),
         // remember me checkbox
          Positioned(
-          top: 0,
-          left: 0,
+          top: SizeHelper.h(579),
+          left: SizeHelper.w(34),
           child: AnimatedSvgCheckbox(
             size: SizeHelper.w(24),
             initialValue: false,
@@ -315,33 +200,11 @@ class GettingStartedScreen extends StatelessWidget {
             checkedAsset: 'assets/icons/checkbox_checked.svg',
                 ),
               ),
-            ],
-          ),
-        ),
-      ), 
       // create account button
       Positioned(
         top: SizeHelper.h(690.96),
         left: SizeHelper.w(45),
-        child: Container(
-          width: SizeHelper.h(299),
-          height: SizeHelper.w(62.47),
-          decoration: BoxDecoration(
-            borderRadius : BorderRadius.circular(34),
-            color : Color.fromRGBO(76, 175, 80, 1),
-              ), 
-            child: Center(
-            child: Text('Create account', textAlign: TextAlign.center, style: TextStyle(
-            color: Color.fromRGBO(0, 0, 0, 1),
-            fontFamily: 'Poppins',
-            fontSize: SizeHelper.w(16),
-            letterSpacing: 0,
-            fontWeight: FontWeight.normal,
-            height: 1
-                  ),
-                )
-              ),
-            ),
+        child: CreateAccountButton(),
           ),
         ],
       ),
