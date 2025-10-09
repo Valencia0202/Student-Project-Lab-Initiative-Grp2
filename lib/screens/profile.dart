@@ -1,9 +1,33 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import '/tools/size_scaling.dart';
+import '/widgets/taskbar.dart';
 
-class ProfileScreen extends StatelessWidget {
+class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
+
+  @override
+  State<ProfileScreen> createState() => ProfileScreenState();
+}
+
+class ProfileScreenState extends State<ProfileScreen> {
+  int currentIndex = 2; // Profile tab active
+
+  void onTabSelected(int index) {
+    if (index == currentIndex) return; // already on this page
+
+    switch (index) {
+      case 0:
+        Navigator.pushReplacementNamed(context, '/home');
+        break;
+      case 1:
+        Navigator.pushReplacementNamed(context, '/qr');
+        break;
+      case 2:
+        // stay here
+        break;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -17,16 +41,20 @@ class ProfileScreen extends StatelessWidget {
           Positioned(
             top: SizeHelper.h(39),
             left: SizeHelper.w(118),
-            child:  Text('Profile', textAlign: TextAlign.center, style: TextStyle(
-              color: Color.fromRGBO(0, 0, 0, 1),
-              fontFamily: 'Poppins',
-              fontSize: SizeHelper.w(16),
-              letterSpacing: 0,
-              fontWeight: FontWeight.w600, // semibold
-              height: 1
-              ),
-            )
-          ),
+            child: SizedBox(
+              width: SizeHelper.w(153),
+              height: SizeHelper.h(24),
+              child:  Text('Profile', textAlign: TextAlign.center, style: TextStyle(
+                color: Color.fromRGBO(0, 0, 0, 1),
+                fontFamily: 'Poppins',
+                fontSize: SizeHelper.w(16),
+                letterSpacing: 0,
+                fontWeight: FontWeight.w600, // semibold
+                height: 1
+                  ),
+                ),
+              )
+            ),
         // profile stats container
         Positioned(
           top: SizeHelper.h(182),
@@ -64,7 +92,7 @@ class ProfileScreen extends StatelessWidget {
         // User name
         Positioned(
           top: SizeHelper.h(243),
-          left: SizeHelper.w(118),
+          left: SizeHelper.w(149),
           child:  Text('Your name', textAlign: TextAlign.center, style: TextStyle(
             color: Color.fromRGBO(0, 0, 0, 1),
             fontFamily: 'Poppins',
@@ -93,13 +121,17 @@ class ProfileScreen extends StatelessWidget {
         Positioned(
           top: SizeHelper.h(319),
           left: SizeHelper.w(74),
-          child: Text('1', textAlign: TextAlign.center, style: TextStyle(
-            color: Color.fromRGBO(0, 0, 0, 1),
-            fontFamily: 'Poppins',
-            fontSize: SizeHelper.w(11),
-            letterSpacing: 0,
-            fontWeight: FontWeight.w600,
-            height: 1
+          child: SizedBox(
+            width: SizeHelper.w(38),
+            height: SizeHelper.h(16),
+            child: Text('1', textAlign: TextAlign.center, style: TextStyle(
+              color: Color.fromRGBO(0, 0, 0, 1),
+              fontFamily: 'Poppins',
+              fontSize: SizeHelper.w(11),
+              letterSpacing: 0,
+              fontWeight: FontWeight.w600,
+              height: 1
+                ),
               ),
             )
           ),
@@ -121,13 +153,17 @@ class ProfileScreen extends StatelessWidget {
         Positioned(
           top: SizeHelper.h(319),
           left: SizeHelper.w(148),
-          child: Text('5', textAlign: TextAlign.center, style: TextStyle(
-            color: Color.fromRGBO(0, 0, 0, 1),
-            fontFamily: 'Poppins',
-            fontSize: SizeHelper.w(11),
-            letterSpacing: 0,
-            fontWeight: FontWeight.w600,
-            height: 1
+          child: SizedBox(
+            width: SizeHelper.w(93),
+            height: SizeHelper.h(16),
+            child: Text('5', textAlign: TextAlign.center, style: TextStyle(
+              color: Color.fromRGBO(0, 0, 0, 1),
+              fontFamily: 'Poppins',
+              fontSize: SizeHelper.w(11),
+              letterSpacing: 0,
+              fontWeight: FontWeight.w600,
+              height: 1
+                ),
               ),
             )
           ),
@@ -149,13 +185,17 @@ class ProfileScreen extends StatelessWidget {
         Positioned(
           top: SizeHelper.h(319),
           left: SizeHelper.w(259),
-          child: Text('100', textAlign: TextAlign.center, style: TextStyle(
-            color: Color.fromRGBO(0, 0, 0, 1),
-            fontFamily: 'Poppins',
-            fontSize: SizeHelper.w(11),
-            letterSpacing: 0,
-            fontWeight: FontWeight.w600,
-            height: 1
+          child: SizedBox(
+            width: SizeHelper.w(75),
+            height: SizeHelper.h(16),
+            child: Text('100', textAlign: TextAlign.center, style: TextStyle(
+              color: Color.fromRGBO(0, 0, 0, 1),
+              fontFamily: 'Poppins',
+              fontSize: SizeHelper.w(11),
+              letterSpacing: 0,
+              fontWeight: FontWeight.w600,
+              height: 1
+                ),
               ),
             )
           ),
@@ -175,32 +215,18 @@ class ProfileScreen extends StatelessWidget {
           ),
         // Account icon
           Positioned(
-            top: SizeHelper.h(466),
-            left: SizeHelper.w(50),
+            top: SizeHelper.h(465),
+            left: SizeHelper.w(49),
             child: SizedBox(
-            width: SizeHelper.w(20.17),
-            height: SizeHelper.w(20.17),
-            child: Stack(
-              children: <Widget>[
-                Positioned(
-                  top: SizeHelper.h(3.67),
-                  left: SizeHelper.w(6.42),
-                  child: SvgPicture.asset(
-                  'assets/icons/account_head.svg',
-                  semanticsLabel: 'account icon (head)'
-                    ),
-                  ),
-                Positioned(
-                  top: 0,
-                  left: 0,
-                  child: SvgPicture.asset(
-                  'assets/icons/account_body.svg',
-                  semanticsLabel: 'account icon (body)'
-                    ),
-                  ),
-                ]
-              )
-            )
+            width: SizeHelper.w(24),
+            height: SizeHelper.w(24),
+            child: Center(
+            child: SvgPicture.asset(
+              'assets/icons/account_head.svg',
+              semanticsLabel: 'account icon (head)'
+                ),
+              ),
+            ),
           ),
         // Account Text
         Positioned(
@@ -300,8 +326,13 @@ class ProfileScreen extends StatelessWidget {
         // Next button to about us
 
         // Taskbar
-
-        
+        Align(
+          alignment: Alignment.bottomCenter,
+          child: Taskbar(
+            currentIndex: currentIndex,
+            onTabSelected: onTabSelected,
+            ),
+          ),
         ],
       ),
     );

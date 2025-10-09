@@ -1,9 +1,33 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import '/tools/size_scaling.dart';
+import '/widgets/taskbar.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
+
+@override
+  State<HomeScreen> createState() => HomeScreenState();
+}
+
+class HomeScreenState extends State<HomeScreen> {
+  int currentIndex = 0; // Home tab active
+
+  void onTabSelected(int index) {
+    if (index == currentIndex) return; // already on this page
+
+    switch (index) {
+      case 0:
+        // stay here
+        break;
+      case 1:
+        Navigator.pushReplacementNamed(context, '/qr');
+        break;
+      case 2:
+        Navigator.pushReplacementNamed(context, '/profile');
+        break;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -99,10 +123,10 @@ class HomeScreen extends StatelessWidget {
                           height: SizeHelper.h(6),
                           decoration: BoxDecoration(
                             borderRadius : BorderRadius.circular(21),
+                            color : Color.fromRGBO(160, 216, 162, 1),
                             ),
-                        color : Color.fromRGBO(160, 216, 162, 1),
-                        )
-                      ),
+                          )
+                        ),
                       // VARIABLE exp bar 
                       Positioned(
                         top: SizeHelper.h(58),
@@ -112,10 +136,10 @@ class HomeScreen extends StatelessWidget {
                           height: SizeHelper.h(6),
                           decoration: BoxDecoration(
                             borderRadius : BorderRadius.circular(21),
+                            color : Color.fromRGBO(160, 216, 162, 1),
                             ),
-                        color : Color.fromRGBO(160, 216, 162, 1),
-                        )
-                      ),
+                          )
+                        ),
                       // Singapore green plan background
                       Positioned(
                         top: SizeHelper.h(99),
@@ -145,7 +169,7 @@ class HomeScreen extends StatelessWidget {
                           fontSize: SizeHelper.w(16),
                           letterSpacing: 0,
                           fontWeight: FontWeight.normal,
-                          height: 1,
+                          height: 1.5,
                            shadows: [
                               Shadow(
                                 offset: Offset(4, 4), // X, Y offset (like "Move" in Figma)
@@ -169,11 +193,14 @@ class HomeScreen extends StatelessWidget {
                           color : Color.fromRGBO(76, 175, 80, 1),
                           ),
                           child: Center(
-                             child: SvgPicture.asset(
-                              width: SizeHelper.w(10.98),
-                              height: SizeHelper.h(28.43),
-                              'assets/icons/arrow.svg',
-                              semanticsLabel: 'arrow button'
+                            child: Transform.rotate(
+                              angle: -89.27 * 3.14159 / 180, // to radians
+                              child: SvgPicture.asset(
+                                width: SizeHelper.w(10.98),
+                                height: SizeHelper.h(28.43),
+                                'assets/icons/arrow.svg',
+                                semanticsLabel: 'arrow button'
+                             ),
                             ),
                           ),
                         ),
@@ -216,7 +243,7 @@ class HomeScreen extends StatelessWidget {
                      Positioned(
                       top: SizeHelper.h(733),
                       left: SizeHelper.w(27),
-                      child: Text('Task', textAlign: TextAlign.left, style: TextStyle(
+                      child: Text('Rewards', textAlign: TextAlign.left, style: TextStyle(
                         color: Color.fromRGBO(0, 0, 0, 1),
                         fontFamily: 'Poppins',
                         fontSize: SizeHelper.w(16),
@@ -228,7 +255,14 @@ class HomeScreen extends StatelessWidget {
                       ),
                     // Rewards
 
-
+                    // Taskbar
+                    Align(
+                      alignment: Alignment.bottomCenter,
+                      child: Taskbar(
+                        currentIndex: currentIndex,
+                        onTabSelected: onTabSelected,
+                        ),
+                      ),
                     ],
                   ),
                 ),
