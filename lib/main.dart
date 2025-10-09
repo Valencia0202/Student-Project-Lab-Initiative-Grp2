@@ -1,7 +1,16 @@
+// lib/main.dart
 import 'package:flutter/material.dart';
 import 'package:device_preview/device_preview.dart';
+
+// existing screens
 import 'screens/start_screen.dart';
 import 'screens/loading_screen.dart';
+
+// pages used by the MainScaffold 
+import 'screens/home.dart';
+import 'screens/qr.dart';
+import 'screens/profile.dart';
+
 
 void main() {
   runApp(
@@ -21,7 +30,15 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       locale: DevicePreview.locale(context),
       builder: DevicePreview.appBuilder,
+      // start app with SplashWrapper 
       home: const SplashWrapper(),
+      // named routes 
+      routes: {
+        '/home': (context) => const HomeScreen(),
+        '/qr': (context) => const QRScreen(),
+        '/profile': (context) => const ProfileScreen(),
+        '/start' : (context) => const StartScreen()
+      },
     );
   }
 }
@@ -44,8 +61,8 @@ class _SplashWrapperState extends State<SplashWrapper> {
   }
 
   Future<void> _initApp() async {
-        // -------------------------
-    // TODO: Replace the following fake delay(in loading screen) with real backend calls (Jaron)
+    // -------------------------
+    // TODO: Replace the following fake delay(in loading screen) with real backend calls
     // 1. Check if user is logged in (low prio)
     // 2. Fetch any initial user data or app config from backend
     // 3. Handle errors if backend is unreachable
@@ -70,7 +87,10 @@ class _SplashWrapperState extends State<SplashWrapper> {
       // Provide distinct keys so AnimatedSwitcher knows widgets changed
       child: _loading
           ? const LoadingScreen(key: ValueKey('loading'))
-          : StartScreen(key: const ValueKey('start')),
+          : StartScreen(
+              key: const ValueKey('start'),
+            ),
     );
   }
 }
+
