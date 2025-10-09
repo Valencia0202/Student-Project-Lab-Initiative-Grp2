@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import '/tools/size_scaling.dart';
 import '/widgets/taskbar.dart';
+import '/widgets/nextbuttons.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -243,7 +244,7 @@ class ProfileScreenState extends State<ProfileScreen> {
             )
           ),
         // next button to account
-
+          NextButtonAccountWidget(),
         // Rewards icon
         Positioned(
           top: SizeHelper.h(515),
@@ -270,7 +271,7 @@ class ProfileScreenState extends State<ProfileScreen> {
             )
           ),
         // next button to redeem rewards
-
+          NextButtonRedeemRewardsWidget(),
         // Achievements icon
         Positioned(
           top: SizeHelper.h(562),
@@ -297,7 +298,7 @@ class ProfileScreenState extends State<ProfileScreen> {
             )
           ),
         // next button to achievements
-
+          NextButtonAchievementsWidget(),
         // information icon (about us)
         Positioned(
           top: SizeHelper.h(617),
@@ -324,7 +325,7 @@ class ProfileScreenState extends State<ProfileScreen> {
             )
           ),
         // Next button to about us
-
+          // TODO: About us unavailable for now
         // Taskbar
         Align(
           alignment: Alignment.bottomCenter,
