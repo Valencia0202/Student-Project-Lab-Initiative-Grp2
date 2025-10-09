@@ -163,13 +163,13 @@ class GettingStartedScreen extends StatelessWidget {
     Positioned(
       top: SizeHelper.h(419),
       height: SizeHelper.w(34),
-      child: EmailField(),
+      child: NameField(),
     ),
     // password text field
    Positioned(
       top: SizeHelper.h(499),
       height: SizeHelper.w(34), // TODO: invisible/visible still WIP
-      child: EmailField(),
+      child: PasswordField(),
     ),
     // remember me 
       Positioned(
