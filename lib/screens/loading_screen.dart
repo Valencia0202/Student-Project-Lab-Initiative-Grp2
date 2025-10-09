@@ -60,7 +60,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
     return Scaffold(
       body: Center(
         child: Column(mainAxisSize: MainAxisSize.min, children: [
-          Image.asset('assets/images/re.png', width: 160, height: 160),
+          Image.asset('assets/images/recyclens.png', width: 160, height: 160),
           const SizedBox(height: 20),
           const CircularProgressIndicator(),
           const SizedBox(height: 12),
