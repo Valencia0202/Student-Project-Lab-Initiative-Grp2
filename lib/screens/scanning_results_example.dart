@@ -4,7 +4,8 @@ import '/widgets/backbutton_qr.dart';
 import '/tools/size_scaling.dart';
 
 class ScanningResultsScreen extends StatelessWidget {
-  const ScanningResultsScreen({super.key});
+  final String itemName;
+  const ScanningResultsScreen({super.key, required this.itemName});
 
   @override
   Widget build(BuildContext context) {
@@ -62,7 +63,7 @@ class ScanningResultsScreen extends StatelessWidget {
            Positioned(
             top: size.height * 0.5,
             left: size.width * 0.613,
-            child:  Text('Plastic Bottle', textAlign: TextAlign.right, style: TextStyle(
+            child:  Text(itemName, textAlign: TextAlign.right, style: TextStyle( // shows AI result
               color: Color.fromRGBO(0, 0, 0, 1),
               fontFamily: 'Poppins',
               fontSize: size.width * 0.0333,

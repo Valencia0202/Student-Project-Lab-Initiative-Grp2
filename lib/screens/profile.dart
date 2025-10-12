@@ -40,7 +40,7 @@ class ProfileScreenState extends State<ProfileScreen> {
         children: <Widget>[
           // Profile text
           Positioned(
-            top: SizeHelper.h(39),
+            top: SizeHelper.h(50),
             left: SizeHelper.w(118),
             child: SizedBox(
               width: SizeHelper.w(153),
@@ -77,7 +77,7 @@ class ProfileScreenState extends State<ProfileScreen> {
             width: SizeHelper.w(97),
             height: SizeHelper.w(97),
             decoration: BoxDecoration(
-              color : Color.fromRGBO(171, 245, 174, 1),
+              color : Color.fromRGBO(171, 245, 174, 1).withValues(alpha: 0.48),
               shape: BoxShape.circle
               ),
             child: Center(
@@ -223,8 +223,8 @@ class ProfileScreenState extends State<ProfileScreen> {
             height: SizeHelper.w(24),
             child: Center(
             child: SvgPicture.asset(
-              'assets/icons/account_head.svg',
-              semanticsLabel: 'account icon (head)'
+              'assets/icons/account.svg',
+              semanticsLabel: 'account icon'
                 ),
               ),
             ),

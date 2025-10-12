@@ -1,7 +1,17 @@
 import 'package:camera/camera.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import '/widgets/taskbar.dart';
+import '/widgets/camera_button.dart';
+import 'scanning_results_example.dart';
+
+// Example stub for your AI call
+Future<String> sendImageToAI(Uint8List bytes) async {
+  // TODO: replace with real API call or local model inference
+  await Future.delayed(const Duration(seconds: 2)); // simulate processing
+  return "Plastic Bottle"; // dummy result
+}
 
 class QRScreen extends StatefulWidget {
   const QRScreen({super.key});
@@ -10,12 +20,11 @@ class QRScreen extends StatefulWidget {
   State<QRScreen> createState() => QRScreenState();
 }
 
-
 class QRScreenState extends State<QRScreen> with WidgetsBindingObserver {
   CameraController? _controller;
   List<CameraDescription>? _cameras;
   bool _isInitialized = false;
-  bool _permissionGranted = true; // set true for prototype without permission handler
+  final bool _permissionGranted = true;
 
   @override
   void initState() {
@@ -24,63 +33,40 @@ class QRScreenState extends State<QRScreen> with WidgetsBindingObserver {
     _initCamera();
   }
 
-  int currentIndex = 1; // qr tab active
+  int currentIndex = 1;
 
   void onTabSelected(int index) {
-    if (index == currentIndex) return; // already on this page
-
+    if (index == currentIndex) return;
     switch (index) {
       case 0:
         Navigator.pushReplacementNamed(context, '/home');
         break;
       case 1:
-        // stay here
         break;
       case 2:
         Navigator.pushReplacementNamed(context, '/profile');
         break;
-      }
     }
+  }
 
   Future<void> _initCamera() async {
     try {
-      // TODO: If you want to explicitly request permissions in prototype, uncomment:
-      // final status = await Permission.camera.request();
-      // if (!status.isGranted) {
-      //   setState(() {
-      //     _permissionGranted = false;
-      //   });
-      //   return;
-      // }
-
       _cameras = await availableCameras();
-      if (_cameras == null || _cameras!.isEmpty) {
-        debugPrint('No cameras found');
-        return;
-      }
+      if (_cameras == null || _cameras!.isEmpty) return;
 
-      // choose back camera by default
       final camera = _cameras!.firstWhere(
         (c) => c.lensDirection == CameraLensDirection.back,
         orElse: () => _cameras!.first,
       );
 
-      _controller = CameraController(
-        camera,
-        ResolutionPreset.medium,
-        enableAudio: false,
-      );
-
+      _controller = CameraController(camera, ResolutionPreset.medium, enableAudio: false);
       await _controller!.initialize();
       if (!mounted) return;
-      setState(() {
-        _isInitialized = true;
-      });
-    } catch (e, st) {
-      debugPrint('Camera init error: $e\n$st');
+      setState(() => _isInitialized = true);
+    } catch (e) {
+      debugPrint('Camera init error: $e');
     }
   }
-
 
   @override
   void dispose() {
@@ -89,7 +75,6 @@ class QRScreenState extends State<QRScreen> with WidgetsBindingObserver {
     super.dispose();
   }
 
-  // handle app lifecycle so camera releases on pause
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     final controller = _controller;
@@ -113,25 +98,18 @@ class QRScreenState extends State<QRScreen> with WidgetsBindingObserver {
     setState(() {});
   }
 
-
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
 
-    // If permission is denied
     if (!_permissionGranted) {
-      return Scaffold(
-        body: Center(
-          child: Text('Camera permission denied.'),
-        ),
-      );
+      return const Scaffold(body: Center(child: Text('Camera permission denied.')));
     }
 
     return Scaffold(
       backgroundColor: Colors.black,
       body: Stack(
         children: <Widget>[
-          // Camera preview as background (fill)
           if (_isInitialized && _controller != null)
             Positioned.fill(
               child: FittedBox(
@@ -145,13 +123,10 @@ class QRScreenState extends State<QRScreen> with WidgetsBindingObserver {
               ),
             )
           else
-            // fallback while initializing
             Positioned.fill(child: Container(color: const Color(0xFF555555))),
 
-          // translucent overlay to help readability (optional)
           Positioned.fill(child: Container(color: Colors.black.withValues(alpha: 0.15))),
 
-          // Hamburger Menu
           Positioned(
             top: size.height * 0.0344,
             left: size.width * 0.0564,
@@ -160,7 +135,7 @@ class QRScreenState extends State<QRScreen> with WidgetsBindingObserver {
               height: size.width * 0.115,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(16),
-                color: const Color(0xFFFFFFFF).withValues(alpha: 0.27),
+                color: const Color(0xFF548256).withValues(alpha: 0.27),
               ),
               child: Center(
                 child: SvgPicture.asset(
@@ -172,10 +147,9 @@ class QRScreenState extends State<QRScreen> with WidgetsBindingObserver {
               ),
             ),
           ),
-          // Camera flip (make it interactive)
           Positioned(
             top: size.height * 0.0344,
-            right: size.width * 0.826, 
+            right: size.width * 0.826,
             child: GestureDetector(
               onTap: _switchCamera,
               child: Container(
@@ -183,7 +157,7 @@ class QRScreenState extends State<QRScreen> with WidgetsBindingObserver {
                 height: size.width * 0.115,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(16),
-                  color: const Color(0xFFFFFFFF).withValues(alpha: 0.27),
+                  color: const Color(0xFF548256).withValues(alpha: 0.27),
                 ),
                 child: Center(
                   child: SvgPicture.asset(
@@ -196,58 +170,35 @@ class QRScreenState extends State<QRScreen> with WidgetsBindingObserver {
               ),
             ),
           ),
-          // Picture button
+          // CAMERA BUTTON
           Positioned(
             top: size.height * 0.744,
             left: size.width * 0.395,
-            child: GestureDetector(
+            child: CameraButton(
+              size: size.width * 0.208,
               onTap: () async {
-                // take picture
                 if (_controller == null || !_controller!.value.isInitialized) return;
                 try {
                   final file = await _controller!.takePicture();
-                  debugPrint('Picture saved to ${file.path}');
+                  final bytes = await file.readAsBytes();
+                  final result = await sendImageToAI(bytes);
+
+                  if (!mounted) return;
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (_) => ScanningResultsScreen(itemName: result),
+                    ),
+                  );
                 } catch (e) {
                   debugPrint('Error taking picture: $e');
                 }
               },
-              child: Container(
-                width: size.width * 0.208,
-                height: size.width * 0.208,
-                decoration: const BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: Color(0xFFFFFFFF),
-                ),
-                child: Center(
-                  child: Container(
-                    width: size.width * 0.177,
-                    height: size.width * 0.177,
-                    decoration: const BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: Color(0xFF606060),
-                    ),
-                    child: Center(
-                      child: Container(
-                        width: size.width * 0.162,
-                        height: size.width * 0.162,
-                        decoration: const BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: Color(0xFFFFFFFF),
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              ),
             ),
           ),
-          // Taskbar
           Align(
-          alignment: Alignment.bottomCenter,
-          child: Taskbar(
-            currentIndex: currentIndex,
-            onTabSelected: onTabSelected,
-            ),
+            alignment: Alignment.bottomCenter,
+            child: Taskbar(currentIndex: currentIndex, onTabSelected: onTabSelected),
           ),
         ],
       ),

@@ -11,7 +11,7 @@ class BackButtonProfileWidget extends StatelessWidget {
     final size = MediaQuery.of(context).size;
 
     return Positioned(
-      top: size.height * 0.0415,
+      top: size.height * 0.05924,
       left: size.width * 0.077,
       child: GestureDetector(
         onTap: () {

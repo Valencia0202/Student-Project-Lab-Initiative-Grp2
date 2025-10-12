@@ -16,10 +16,11 @@ class AccountScreen extends StatelessWidget {
         children: <Widget>[
           // back button
             const BackButtonProfileWidget(),
-          // Achievements text
+          // Account settings text
           Positioned(
-            top: SizeHelper.h(39),
+            top: SizeHelper.h(50),
             left: SizeHelper.w(118),
+            child: SizedBox(
             child:  Text('Account settings', textAlign: TextAlign.center, style: TextStyle(
               color: Color.fromRGBO(0, 0, 0, 1),
               fontFamily: 'Poppins',
@@ -27,6 +28,7 @@ class AccountScreen extends StatelessWidget {
               letterSpacing: 0,
               fontWeight: FontWeight.w600, //semibold
               height: 1
+                ),
               ),
             )
           ),
@@ -90,13 +92,17 @@ class AccountScreen extends StatelessWidget {
             top: SizeHelper.h(14),
             left: SizeHelper.w(49),
             // TODO: email based on user's login details
-            child: Text('youremail@example.com', textAlign: TextAlign.left, style: TextStyle( 
-            color: Color.fromRGBO(0, 0, 0, 1),
-            fontFamily: 'Poppins',
-            fontSize: SizeHelper.w(12),
-            letterSpacing: 0,
-            fontWeight: FontWeight.normal,
-            height: 1
+            child: SizedBox(
+              width: SizeHelper.w(163),
+              height: SizeHelper.h(20),
+              child: Text('youremail@example.com', textAlign: TextAlign.left, style: TextStyle( 
+              color: Color.fromRGBO(0, 0, 0, 1),
+              fontFamily: 'Poppins',
+              fontSize: SizeHelper.w(12),
+              letterSpacing: 0,
+              fontWeight: FontWeight.normal,
+              height: 1
+                  ),
                 ),
               )
             ),
@@ -106,7 +112,7 @@ class AccountScreen extends StatelessWidget {
         ),
         // username text field
         Positioned(
-        top: SizeHelper.h(419),
+        top: SizeHelper.h(363),
         left: SizeHelper.w(34),
         child: SizedBox(
           width: SizeHelper.w(322),
@@ -143,13 +149,17 @@ class AccountScreen extends StatelessWidget {
                 top: SizeHelper.h(15),
                 left: SizeHelper.w(49),
                 // TODO: name based on user's login details
+                child: SizedBox(
+                  width: SizeHelper.w(163),
+                  height: SizeHelper.h(18),
                 child: Text('your name', textAlign: TextAlign.left, style: TextStyle( 
-                color: Color.fromRGBO(0, 0, 0, 1),
-                fontFamily: 'Poppins',
-                fontSize: SizeHelper.w(12),
-                letterSpacing: 0,
-                fontWeight: FontWeight.normal,
-                height: 1
+                  color: Color.fromRGBO(0, 0, 0, 1),
+                  fontFamily: 'Poppins',
+                  fontSize: SizeHelper.w(12),
+                  letterSpacing: 0,
+                  fontWeight: FontWeight.normal,
+                  height: 1
+                      ),
                     ),
                   )
                 ),
@@ -159,7 +169,7 @@ class AccountScreen extends StatelessWidget {
             ),
         // password text field
         Positioned(
-        top: SizeHelper.h(499),
+        top: SizeHelper.h(443),
         left: SizeHelper.w(34),
         child: SizedBox(
           width: SizeHelper.w(322),
@@ -196,13 +206,17 @@ class AccountScreen extends StatelessWidget {
             top: SizeHelper.h(15),
             left: SizeHelper.w(49),
             // TODO: password based on user's login details
-            child: Text('...........................', textAlign: TextAlign.left, style: TextStyle( 
-            color: Color.fromRGBO(0, 0, 0, 1),
-            fontFamily: 'Poppins',
-            fontSize: SizeHelper.w(12),
-            letterSpacing: 0,
-            fontWeight: FontWeight.normal,
-            height: 1
+            child: SizedBox(
+              width: SizeHelper.w(163),
+              height: SizeHelper.h(18),
+              child: Text('...........................', textAlign: TextAlign.left, style: TextStyle( 
+              color: Color.fromRGBO(0, 0, 0, 1),
+              fontFamily: 'Poppins',
+              fontSize: SizeHelper.w(12),
+              letterSpacing: 0,
+              fontWeight: FontWeight.normal,
+              height: 1
+                  ),
                 ),
               )
             ),
@@ -229,9 +243,9 @@ class AccountScreen extends StatelessWidget {
           top: SizeHelper.h(544),
           left: SizeHelper.w(42),
           child: SvgPicture.asset(
+            'assets/icos/google.svg',
             width: SizeHelper.w(24.23),
             height: SizeHelper.w(24.23),
-            'assets/icos/google.svg',
             semanticsLabel: 'google icon'
             ),
           ),
@@ -240,9 +254,9 @@ class AccountScreen extends StatelessWidget {
           top: SizeHelper.h(624),
           left: SizeHelper.w(42),
           child: SvgPicture.asset(
+            'assets/icos/facebook.svg',
             width: SizeHelper.w(25.51),
             height: SizeHelper.h(25.44),
-            'assets/icos/facebook.svg',
             semanticsLabel: 'facebook icon'
             ),
           ),
@@ -251,14 +265,15 @@ class AccountScreen extends StatelessWidget {
           top: SizeHelper.h(703),
           left: SizeHelper.w(45),
           child: SvgPicture.asset(
+            'assets/icos/twitter.svg',
             width: SizeHelper.w(24.49),
             height: SizeHelper.h(22.19),
-            'assets/icos/twitter.svg',
             semanticsLabel: 'twitter icon'
             ),
           ),
         ],
-      // link and unlink buttons wip
+      // link and unlink buttons
+      
 
       // Taskbar
 

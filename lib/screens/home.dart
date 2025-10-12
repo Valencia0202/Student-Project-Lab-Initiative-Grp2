@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter_polygon/flutter_polygon.dart';
 import '/tools/size_scaling.dart';
 import '/widgets/taskbar.dart';
 
@@ -40,11 +41,11 @@ class HomeScreenState extends State<HomeScreen> {
       backgroundColor: const Color(0xFFFFFFFF), 
       extendBody: true,
       body: SafeArea(
+        top: false,
         child: Stack( 
           children: [
             // Scrollable long content
-            Positioned.fill(
-              child: SingleChildScrollView(
+              SingleChildScrollView(
                 physics: const BouncingScrollPhysics(),
                 padding: EdgeInsets.only(bottom: taskbarHeight + SizeHelper.h(16)),
                 child: SizedBox(
@@ -66,7 +67,7 @@ class HomeScreenState extends State<HomeScreen> {
                             child: SvgPicture.asset(
                               width: SizeHelper.w(22.31),
                               height: SizeHelper.h(24.44),
-                              'assets/images/profile.svg',
+                              'assets/icons/profile.svg',
                               semanticsLabel: 'profile pic'
                             ),
                           ),
@@ -93,7 +94,7 @@ class HomeScreenState extends State<HomeScreen> {
                         child:  Text('Your name', textAlign: TextAlign.left, style: TextStyle( // TODO: Replace with user's name (jaron)
                           color: Color.fromRGBO(0, 0, 0, 1),
                           fontFamily: 'Poppins',
-                          fontSize: 16,
+                          fontSize: SizeHelper.w(16),
                           letterSpacing: 0,
                           fontWeight: FontWeight.normal,
                           height: 1
@@ -117,7 +118,7 @@ class HomeScreenState extends State<HomeScreen> {
                       // CONSTANT exp bar background
                       Positioned(
                         top: SizeHelper.h(58),
-                        height: SizeHelper.w(250),
+                        left: SizeHelper.w(250),
                         child: Container(
                           width: SizeHelper.w(117),
                           height: SizeHelper.h(6),
@@ -130,7 +131,7 @@ class HomeScreenState extends State<HomeScreen> {
                       // VARIABLE exp bar 
                       Positioned(
                         top: SizeHelper.h(58),
-                        height: SizeHelper.w(250),
+                        left: SizeHelper.w(250),
                         child: Container(
                           width: SizeHelper.w(90), // TODO: change width of exp bar depending on the % user exp of max exp in each level (low prio for demo) (jaron) 
                           height: SizeHelper.h(6),
@@ -194,7 +195,7 @@ class HomeScreenState extends State<HomeScreen> {
                           ),
                           child: Center(
                             child: Transform.rotate(
-                              angle: -89.27 * 3.14159 / 180, // to radians
+                              angle: 89.27 * 3.14159 / 180, // to radians
                               child: SvgPicture.asset(
                                 width: SizeHelper.w(10.98),
                                 height: SizeHelper.h(28.43),
@@ -220,8 +221,317 @@ class HomeScreenState extends State<HomeScreen> {
                         )
                       ),
                     // About Recyclables
-                    
-
+                    Positioned(
+                      top: SizeHelper.h(302),
+                      left: SizeHelper.w(44),
+                      child: SingleChildScrollView(
+                        scrollDirection: Axis.horizontal, 
+                        child: Row(
+                          children: [
+                            // Paper
+                            SizedBox(
+                              width: SizeHelper.w(296),
+                              height: SizeHelper.h(217),
+                              child: Stack(
+                                children: <Widget>[
+                                  Positioned(
+                                    top: 0,
+                                    left: 0,
+                                    child: Container(
+                                      width: 296,
+                                      height: 162,
+                                      decoration: BoxDecoration(
+                                        borderRadius : BorderRadius.circular(14),
+                                        boxShadow : [BoxShadow(
+                                            color: Color.fromRGBO(0, 0, 0, 0.25),
+                                            offset: Offset(3,-3),
+                                            blurRadius: 10.9
+                                        )],
+                                      image : DecorationImage(
+                                          image: AssetImage('assets/images/paper.jpg'),
+                                          fit: BoxFit.fitWidth
+                                        ),
+                                      )
+                                    )
+                                  ),
+                                Positioned(
+                                  top: SizeHelper.h(118),
+                                  left: SizeHelper.w(14),
+                                  child: Container(
+                                  width: SizeHelper.w(267),
+                                  height: SizeHelper.h(99),
+                                  decoration: BoxDecoration(
+                                    borderRadius : BorderRadius.circular(14),
+                                    color : Color.fromRGBO(239, 239, 239, 1).withValues(alpha:0.84),
+                                      )
+                                    )
+                                  ),
+                                Positioned(
+                                  top: SizeHelper.h(132),
+                                  left: SizeHelper.w(32),
+                                  child: SizedBox(
+                                    width: SizeHelper.w(56),
+                                    height: SizeHelper.h(16),
+                                    child: Text('Paper', textAlign: TextAlign.left, style: TextStyle(
+                                    color: Color.fromRGBO(0, 0, 0, 1),
+                                    fontFamily: 'Poppins',
+                                    fontSize: SizeHelper.w(12),
+                                    letterSpacing: 0,
+                                    fontWeight: FontWeight.w600,
+                                    height: 1.5
+                                        ),
+                                      ),
+                                    )
+                                  ),
+                                Positioned(
+                                  top: SizeHelper.h(149),
+                                  left: SizeHelper.w(33),
+                                  child: SizedBox(
+                                    width: SizeHelper.w(227),
+                                    height: SizeHelper.h(62),
+                                    child: Text('Keep the paper clean and dry, and stack neatly if possible. Some examples include newspapers, office paper and magazines. Do not put in tissue paper or food-stained cardboard!\nFun fact: Recycling 1 ton of paper saves 17 trees!', textAlign: TextAlign.left, style: TextStyle(
+                                      color: Color.fromRGBO(0, 0, 0, 1),
+                                      fontFamily: 'Poppins',
+                                      fontSize: SizeHelper.w(7.5),
+                                      letterSpacing: 0,
+                                      fontWeight: FontWeight.normal,
+                                      height: 1.5
+                                        ),
+                                      ),
+                                    )
+                                  ),
+                                ],
+                              ), 
+                            ),
+                          // Plastic
+                           SizedBox(
+                              width: SizeHelper.w(296),
+                              height: SizeHelper.h(217),
+                              child: Stack(
+                                children: <Widget>[
+                                  Positioned(
+                                    top: 0,
+                                    left: 0,
+                                    child: Container(
+                                      width: SizeHelper.w(296),
+                                      height: SizeHelper.h(162),
+                                      decoration: BoxDecoration(
+                                        borderRadius : BorderRadius.circular(14),
+                                        boxShadow : [BoxShadow(
+                                            color: Color.fromRGBO(0, 0, 0, 0.25),
+                                            offset: Offset(3,-3),
+                                            blurRadius: 10.9
+                                        )],
+                                      image : DecorationImage(
+                                          image: AssetImage('assets/images/plastic.png'),
+                                          fit: BoxFit.fitWidth
+                                        ),
+                                      )
+                                    )
+                                  ),
+                                Positioned(
+                                  top: SizeHelper.h(118),
+                                  left: SizeHelper.w(14),
+                                  child: Container(
+                                  width: SizeHelper.w(267),
+                                  height: SizeHelper.h(99),
+                                  decoration: BoxDecoration(
+                                    borderRadius : BorderRadius.circular(14),
+                                    color : Color.fromRGBO(239, 239, 239, 1).withValues(alpha:0.84),
+                                      )
+                                    )
+                                  ),
+                                Positioned(
+                                  top: SizeHelper.h(132),
+                                  left: SizeHelper.w(32),
+                                  child: SizedBox(
+                                    width: SizeHelper.w(56),
+                                    height: SizeHelper.h(16),
+                                    child: Text('Plastic', textAlign: TextAlign.left, style: TextStyle(
+                                    color: Color.fromRGBO(0, 0, 0, 1),
+                                    fontFamily: 'Poppins',
+                                    fontSize: SizeHelper.w(12),
+                                    letterSpacing: 0,
+                                    fontWeight: FontWeight.w600,
+                                    height: 1.5
+                                        ),
+                                      ),
+                                    )
+                                  ),
+                                Positioned(
+                                  top: SizeHelper.h(149),
+                                  left: SizeHelper.w(33),
+                                  child: SizedBox(
+                                    width: SizeHelper.w(227),
+                                    height: SizeHelper.h(62),
+                                    child: Text('Empty contents and rinse, removing dirty straws and caps, before recycling! Typically only plastic types 1, 2 and 5 are recycled.\nFun fact: Recycling 1 plastic bottle saves enough energy to power a light bulb for 6 hours!', textAlign: TextAlign.left, style: TextStyle(
+                                      color: Color.fromRGBO(0, 0, 0, 1),
+                                      fontFamily: 'Poppins',
+                                      fontSize: SizeHelper.w(7.5),
+                                      letterSpacing: 0,
+                                      fontWeight: FontWeight.normal,
+                                      height: 1.5
+                                        ),
+                                      ),
+                                    )
+                                  ),
+                                ],
+                              ), 
+                            ),
+                          // Metal
+                           SizedBox(
+                              width: SizeHelper.w(296),
+                              height: SizeHelper.h(217),
+                              child: Stack(
+                                children: <Widget>[
+                                  Positioned(
+                                    top: 0,
+                                    left: 0,
+                                    child: Container(
+                                      width: SizeHelper.w(296),
+                                      height: SizeHelper.h(162),
+                                      decoration: BoxDecoration(
+                                        borderRadius : BorderRadius.circular(14),
+                                        boxShadow : [BoxShadow(
+                                            color: Color.fromRGBO(0, 0, 0, 0.25),
+                                            offset: Offset(3,-3),
+                                            blurRadius: 10.9
+                                        )],
+                                      image : DecorationImage(
+                                          image: AssetImage('assets/images/silver.jpg'),
+                                          fit: BoxFit.fitWidth
+                                        ),
+                                      )
+                                    )
+                                  ),
+                                Positioned(
+                                  top: SizeHelper.h(118),
+                                  left: SizeHelper.w(14),
+                                  child: Container(
+                                  width: SizeHelper.w(267),
+                                  height: SizeHelper.h(99),
+                                  decoration: BoxDecoration(
+                                    borderRadius : BorderRadius.circular(14),
+                                    color : Color.fromRGBO(239, 239, 239, 1).withValues(alpha:0.84),
+                                      )
+                                    )
+                                  ),
+                                Positioned(
+                                  top: SizeHelper.h(132),
+                                  left: SizeHelper.w(32),
+                                  child: SizedBox(
+                                    width: SizeHelper.w(56),
+                                    height: SizeHelper.h(16),
+                                    child: Text('Metal', textAlign: TextAlign.left, style: TextStyle(
+                                    color: Color.fromRGBO(0, 0, 0, 1),
+                                    fontFamily: 'Poppins',
+                                    fontSize: SizeHelper.w(12),
+                                    letterSpacing: 0,
+                                    fontWeight: FontWeight.w600,
+                                    height: 1.5
+                                        ),
+                                      ),
+                                    )
+                                  ),
+                                Positioned(
+                                  top: SizeHelper.h(149),
+                                  left: SizeHelper.w(33),
+                                  child: SizedBox(
+                                    width: SizeHelper.w(227),
+                                    height: SizeHelper.h(62),
+                                    child: Text('Empty contents and rinse, and flatten if possible. Some examples include aluminum drink cans and steel food cans\nFun fact: Recycling 1 aluminum can saves enough energy to run a laptop for 5 hours!', textAlign: TextAlign.left, style: TextStyle(
+                                      color: Color.fromRGBO(0, 0, 0, 1),
+                                      fontFamily: 'Poppins',
+                                      fontSize: SizeHelper.w(7.5),
+                                      letterSpacing: 0,
+                                      fontWeight: FontWeight.normal,
+                                      height: 1.5
+                                        ),
+                                      ),
+                                    )
+                                  ),
+                                ],
+                              ), 
+                            ),
+                          // Glass
+                           SizedBox(
+                              width: SizeHelper.w(296),
+                              height: SizeHelper.h(217),
+                              child: Stack(
+                                children: <Widget>[
+                                  Positioned(
+                                    top: 0,
+                                    left: 0,
+                                    child: Container(
+                                      width: SizeHelper.w(296),
+                                      height: SizeHelper.h(162),
+                                      decoration: BoxDecoration(
+                                        borderRadius : BorderRadius.circular(14),
+                                        boxShadow : [BoxShadow(
+                                            color: Color.fromRGBO(0, 0, 0, 0.25).withValues(alpha:0.25),
+                                            offset: Offset(3,-3),
+                                            blurRadius: 10.9
+                                        )],
+                                      image : DecorationImage(
+                                          image: AssetImage('assets/images/glass.jpg'),
+                                          fit: BoxFit.fitWidth
+                                        ),
+                                      )
+                                    )
+                                  ),
+                                Positioned(
+                                  top: SizeHelper.h(118),
+                                  left: SizeHelper.w(14),
+                                  child: Container(
+                                  width: SizeHelper.w(267),
+                                  height: SizeHelper.h(99),
+                                  decoration: BoxDecoration(
+                                    borderRadius : BorderRadius.circular(14),
+                                    color : Color.fromRGBO(239, 239, 239, 1).withValues(alpha:0.84),
+                                      )
+                                    )
+                                  ),
+                                Positioned(
+                                  top: SizeHelper.h(132),
+                                  left: SizeHelper.w(32),
+                                  child: SizedBox(
+                                    width: SizeHelper.w(56),
+                                    height: SizeHelper.h(16),
+                                    child: Text('Glass', textAlign: TextAlign.left, style: TextStyle(
+                                    color: Color.fromRGBO(0, 0, 0, 1),
+                                    fontFamily: 'Poppins',
+                                    fontSize: SizeHelper.w(12),
+                                    letterSpacing: 0,
+                                    fontWeight: FontWeight.w600,
+                                    height: 1.5
+                                        ),
+                                      ),
+                                    )
+                                  ),
+                                Positioned(
+                                  top: SizeHelper.h(149),
+                                  left: SizeHelper.w(33),
+                                  child: SizedBox(
+                                    width: SizeHelper.w(227),
+                                    height: SizeHelper.h(62),
+                                    child: Text('Empty contents and rinse, simple! However please be careful with it! Some examples include glass bottles and jars.\nFun fact: Glass can be recycled endlessly without losing quality!', textAlign: TextAlign.left, style: TextStyle(
+                                      color: Color.fromRGBO(0, 0, 0, 1),
+                                      fontFamily: 'Poppins',
+                                      fontSize: SizeHelper.w(7.5),
+                                      letterSpacing: 0,
+                                      fontWeight: FontWeight.normal,
+                                      height: 1.5
+                                        ),
+                                      ),
+                                    )
+                                  ),
+                                ],
+                              ), 
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
                     // Task Text
                     Positioned(
                       top: SizeHelper.h(547),
@@ -236,9 +546,121 @@ class HomeScreenState extends State<HomeScreen> {
                           ),
                         )
                       ),
-                    // Task 
-
-
+                    // Task example
+                    Positioned(
+                      top: SizeHelper.h(583),
+                      left: SizeHelper.w(15),
+                      child: Container(
+                        width: SizeHelper.w(360),
+                        height: SizeHelper.h(126),
+                        decoration: BoxDecoration(
+                          borderRadius : BorderRadius.only(
+                            topLeft: Radius.circular(14),
+                            topRight: Radius.circular(14),
+                            bottomLeft: Radius.circular(14),
+                            bottomRight: Radius.circular(14),
+                          ),
+                        border : Border.all(
+                            color: Color.fromRGBO(0, 0, 0, 1),
+                            width: 0.4000000059604645,
+                            ),
+                          )
+                        ),
+                      ),
+                    Positioned(
+                      top: SizeHelper.h(601),
+                      left: SizeHelper.w(35),
+                      child: SizedBox(
+                        width: SizeHelper.w(179),
+                        height: SizeHelper.h(33),
+                        child: Text('Share your recycling results\n5 times to unlock an achievement', textAlign: TextAlign.left, style: TextStyle(
+                          color: Color.fromRGBO(0, 0, 0, 1),
+                          fontFamily: 'Poppins',
+                          fontSize: SizeHelper.w(10),
+                          letterSpacing: 0,
+                          fontWeight: FontWeight.w600,
+                          height: 1.5
+                            ),
+                          ),
+                        )
+                      ),
+                    Positioned(
+                      top: SizeHelper.h(645),
+                      left: SizeHelper.w(35),
+                      child: SizedBox(
+                        width: SizeHelper.w(84),
+                        height: SizeHelper.h(11),
+                      child: Text('Shared 4/5 times!', textAlign: TextAlign.left, style: TextStyle(
+                        color: Color.fromRGBO(0, 0, 0, 1).withValues(alpha:0.6),
+                        fontFamily: 'Poppins',
+                        fontSize: SizeHelper.w(8),
+                        letterSpacing: 0,
+                        fontWeight: FontWeight.normal,
+                        height: 1
+                          ),
+                        ),
+                      )
+                    ),
+                    Positioned(
+                      top: SizeHelper.h(638),
+                      left: SizeHelper.w(35),
+                      child: Container(
+                        width: SizeHelper.w(179),
+                        height: SizeHelper.h(3),
+                        decoration: BoxDecoration(
+                          borderRadius : BorderRadius.circular(21),
+                          color : Color.fromRGBO(160, 216, 162, 1),
+                        )
+                      )
+                    ),
+                    Positioned(
+                      top: SizeHelper.h(638),
+                      left: SizeHelper.w(35),
+                      child: Container(
+                        width: SizeHelper.w(138),
+                        height: SizeHelper.h(3),
+                        decoration: BoxDecoration(
+                          borderRadius : BorderRadius.circular(21),
+                          color : Color.fromRGBO(83, 129, 85, 1),
+                        )
+                      )
+                    ),
+                    Positioned(
+                      top: SizeHelper.h(612),
+                      left: SizeHelper.w(278),
+                      child: Container(
+                        height: SizeHelper.w(73),
+                        width: SizeHelper.w(73),
+                        decoration: ShapeDecoration(
+                          color: Color(0xFF7FD7FF),
+                          shape: PolygonBorder(sides: 5, borderRadius: 7), 
+                        ),
+                      ),
+                    ),
+                    // Share now button to qr page (part of exmaple task)
+                    Positioned(
+                      top: SizeHelper.h(662),
+                      left: SizeHelper.w(35),
+                      child: Container(
+                        width: SizeHelper.w(84),
+                        height: SizeHelper.h(28),
+                        decoration: BoxDecoration(
+                          borderRadius : BorderRadius.circular(34),
+                          color : Color.fromRGBO(76, 175, 80, 1),
+                        ),
+                        child: Center(
+                          child: Text('Share now', textAlign: TextAlign.center, style: TextStyle(
+                            color: Color.fromRGBO(0, 0, 0, 1),
+                            fontFamily: 'Poppins',
+                            fontSize: SizeHelper.w(8),
+                            letterSpacing: 0,
+                            fontWeight: FontWeight.normal,
+                            height: 1
+                            ),
+                          )
+                        ),
+                      )
+                    ),
                     // Rewards Text
                      Positioned(
                       top: SizeHelper.h(733),
@@ -253,19 +675,204 @@ class HomeScreenState extends State<HomeScreen> {
                           ),
                         )
                       ),
-                    // Rewards
+                    // See all button
 
-                    // Taskbar
-                    Align(
-                      alignment: Alignment.bottomCenter,
-                      child: Taskbar(
-                        currentIndex: currentIndex,
-                        onTabSelected: onTabSelected,
+                    // REWARDS
+                    // starbucks
+                    Positioned(
+                      top: SizeHelper.h(769),
+                      left: SizeHelper.w(15),
+                      child: SizedBox(
+                        width: SizeHelper.w(168),
+                        height: SizeHelper.h(156),
+                          child: Stack(
+                            children: <Widget>[
+                              Positioned(
+                                top: 0,
+                                left: 0,
+                                child: Container(
+                                width: SizeHelper.w(168),
+                                height: SizeHelper.h(106),
+                                decoration: BoxDecoration(
+                                  borderRadius : BorderRadius.only(
+                                    topLeft: Radius.circular(14),
+                                    topRight: Radius.circular(14),
+                                    bottomLeft: Radius.circular(0),
+                                    bottomRight: Radius.circular(0),
+                                    ),
+                                    color : Color.fromRGBO(0, 112, 74, 1),
+                                )
+                              )
+                            ),
+                          Positioned(
+                            top: SizeHelper.h(7),
+                            left: SizeHelper.w(31),
+                            child: SizedBox(
+                              width: SizeHelper.w(106),
+                              height: SizeHelper.h(27),
+                              child: Text('\$5 OFF', textAlign: TextAlign.center, style: TextStyle(
+                              color: Color.fromRGBO(255, 255, 255, 1),
+                              fontFamily: 'Poppins',
+                              fontSize: SizeHelper.w(20),
+                              letterSpacing: 0,
+                              fontWeight: FontWeight.w600,
+                              height: 1
+                                ),
+                              )
+                            ),
+                          ),
+                          Positioned(
+                            top: SizeHelper.h(32),
+                            left: SizeHelper.w(47),
+                            child: Container(
+                            width: SizeHelper.w(74),
+                            height: SizeHelper.h(99),
+                            decoration: BoxDecoration(
+                              image : DecorationImage(
+                              image: AssetImage('assets/images/starbucks_drink.png'),
+                              fit: BoxFit.fitWidth
+                                ),
+                              )
+                            )
+                          ),
+                          Positioned(
+                            top: SizeHelper.h(105),
+                            left: 0,
+                            child: Container(
+                            width: SizeHelper.w(168),
+                            height: SizeHelper.h(51),
+                            decoration: BoxDecoration(
+                              borderRadius : BorderRadius.only(
+                                topLeft: Radius.circular(0),
+                                topRight: Radius.circular(0),
+                                bottomLeft: Radius.circular(14),
+                                bottomRight: Radius.circular(14),
+                                    ),
+                                color : Color.fromRGBO(255, 255, 255, 1),
+                                border : Border.all(
+                                    color: Color.fromRGBO(185, 185, 185, 1),
+                                    width: 0.5,
+                                  ),
+                                ),
+                                child: Center(
+                                  child: Text('Starbucks', textAlign: TextAlign.center, style: TextStyle(
+                                  color: Color.fromRGBO(0, 0, 0, 1),
+                                  fontFamily: 'Poppins',
+                                  fontSize: SizeHelper.w(12),
+                                  letterSpacing: 0,
+                                  fontWeight: FontWeight.w600,
+                                  height: 1
+                                    ),
+                                  ),
+                                )
+                              )
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    // Ya Kun kaya toast
+                    Positioned(
+                      top: SizeHelper.h(769),
+                      left: SizeHelper.w(207),
+                      child: SizedBox(
+                        width: SizeHelper.w(168),
+                        height: SizeHelper.h(156),
+                          child: Stack(
+                            children: <Widget>[
+                              Positioned(
+                                top: 0,
+                                left: 0,
+                                child: Container(
+                                width: SizeHelper.w(168),
+                                height: SizeHelper.h(106),
+                                decoration: BoxDecoration(
+                                  borderRadius : BorderRadius.only(
+                                    topLeft: Radius.circular(14),
+                                    topRight: Radius.circular(14),
+                                    bottomLeft: Radius.circular(0),
+                                    bottomRight: Radius.circular(0),
+                                    ),
+                                    color : Color.fromRGBO(144, 0, 39, 1),
+                                )
+                              )
+                            ),
+                          Positioned(
+                            top: SizeHelper.h(7),
+                            left: SizeHelper.w(31),
+                            child: SizedBox(
+                              width: SizeHelper.w(106),
+                              height: SizeHelper.h(27),
+                            child: Text('\$5 OFF', textAlign: TextAlign.center, style: TextStyle(
+                            color: Color.fromRGBO(255, 255, 255, 1),
+                            fontFamily: 'Poppins',
+                            fontSize: SizeHelper.w(20),
+                            letterSpacing: 0,
+                            fontWeight: FontWeight.w600,
+                            height: 1
+                                ),
+                              ),
+                            )
+                          ),
+                          Positioned(
+                            top: SizeHelper.h(18),
+                            left: 0,
+                            child: Container(
+                            width: SizeHelper.w(168),
+                            height: SizeHelper.h(131),
+                            decoration: BoxDecoration(
+                              image : DecorationImage(
+                              image: AssetImage('assets/images/kaya_toast.png'),
+                              fit: BoxFit.fitWidth
+                                ),
+                              )
+                            )
+                          ),
+                          Positioned(
+                            top: SizeHelper.h(105),
+                            left: 0,
+                            child: Container(
+                            width: SizeHelper.w(168),
+                            height: SizeHelper.h(51),
+                            decoration: BoxDecoration(
+                              borderRadius : BorderRadius.only(
+                                topLeft: Radius.circular(0),
+                                topRight: Radius.circular(0),
+                                bottomLeft: Radius.circular(14),
+                                bottomRight: Radius.circular(14),
+                                    ),
+                                color : Color.fromRGBO(255, 255, 255, 1),
+                                border : Border.all(
+                                    color: Color.fromRGBO(185, 185, 185, 1),
+                                    width: 0.5,
+                                  ),
+                                ),
+                                child: Center(
+                                  child: Text('Ya Kun Kaya Toast', textAlign: TextAlign.center, style: TextStyle(
+                                  color: Color.fromRGBO(0, 0, 0, 1),
+                                  fontFamily: 'Poppins',
+                                  fontSize: SizeHelper.w(12),
+                                  letterSpacing: 0,
+                                  fontWeight: FontWeight.w600,
+                                  height: 1
+                                      ),
+                                    ),
+                                  )
+                                )
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     ],
                   ),
                 ),
+              ),
+              Align(
+                alignment: Alignment.bottomCenter,
+                child: Taskbar(
+                  currentIndex: currentIndex,
+                  onTabSelected: onTabSelected,
               ),
             ),
           ],
