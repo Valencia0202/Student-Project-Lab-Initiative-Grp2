@@ -18,16 +18,18 @@ class AccountScreen extends StatelessWidget {
             const BackButtonProfileWidget(),
           // Account settings text
           Positioned(
-            top: SizeHelper.h(50),
+            top: SizeHelper.h(57),
             left: SizeHelper.w(118),
             child: SizedBox(
-            child:  Text('Account settings', textAlign: TextAlign.center, style: TextStyle(
-              color: Color.fromRGBO(0, 0, 0, 1),
-              fontFamily: 'Poppins',
-              fontSize: SizeHelper.w(16),
-              letterSpacing: 0,
-              fontWeight: FontWeight.w600, //semibold
-              height: 1
+              width: SizeHelper.w(153),
+              height: SizeHelper.h(24),
+              child:  Text('Account settings', textAlign: TextAlign.center, style: TextStyle(
+                color: Color.fromRGBO(0, 0, 0, 1),
+                fontFamily: 'Poppins',
+                fontSize: SizeHelper.w(16),
+                letterSpacing: 0,
+                fontWeight: FontWeight.w600, //semibold
+                height: 1
                 ),
               ),
             )
@@ -89,7 +91,7 @@ class AccountScreen extends StatelessWidget {
               ),
             ),
           Positioned(
-            top: SizeHelper.h(14),
+            top: SizeHelper.h(15),
             left: SizeHelper.w(49),
             // TODO: email based on user's login details
             child: SizedBox(
@@ -101,7 +103,7 @@ class AccountScreen extends StatelessWidget {
               fontSize: SizeHelper.w(12),
               letterSpacing: 0,
               fontWeight: FontWeight.normal,
-              height: 1
+              height: 1.5
                   ),
                 ),
               )
@@ -158,7 +160,7 @@ class AccountScreen extends StatelessWidget {
                   fontSize: SizeHelper.w(12),
                   letterSpacing: 0,
                   fontWeight: FontWeight.normal,
-                  height: 1
+                  height: 1.5
                       ),
                     ),
                   )
@@ -215,7 +217,7 @@ class AccountScreen extends StatelessWidget {
               fontSize: SizeHelper.w(12),
               letterSpacing: 0,
               fontWeight: FontWeight.normal,
-              height: 1
+              height: 1.5
                   ),
                 ),
               )
@@ -243,7 +245,7 @@ class AccountScreen extends StatelessWidget {
           top: SizeHelper.h(544),
           left: SizeHelper.w(42),
           child: SvgPicture.asset(
-            'assets/icos/google.svg',
+            'assets/icons/google.svg',
             width: SizeHelper.w(24.23),
             height: SizeHelper.w(24.23),
             semanticsLabel: 'google icon'
@@ -254,7 +256,7 @@ class AccountScreen extends StatelessWidget {
           top: SizeHelper.h(624),
           left: SizeHelper.w(42),
           child: SvgPicture.asset(
-            'assets/icos/facebook.svg',
+            'assets/icons/facebook.svg',
             width: SizeHelper.w(25.51),
             height: SizeHelper.h(25.44),
             semanticsLabel: 'facebook icon'
@@ -265,7 +267,7 @@ class AccountScreen extends StatelessWidget {
           top: SizeHelper.h(703),
           left: SizeHelper.w(45),
           child: SvgPicture.asset(
-            'assets/icos/twitter.svg',
+            'assets/icons/twitter.svg',
             width: SizeHelper.w(24.49),
             height: SizeHelper.h(22.19),
             semanticsLabel: 'twitter icon'

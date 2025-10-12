@@ -65,7 +65,7 @@ class ProfileScreenState extends State<ProfileScreen> {
             height: SizeHelper.h(204),
             decoration: BoxDecoration(
               borderRadius : BorderRadius.circular(31),
-              color : Color.fromRGBO(171, 245, 174, 1),
+              color : Color.fromRGBO(171, 245, 174, 1).withValues(alpha: 0.48),
               ),
             ),
           ),
@@ -77,7 +77,7 @@ class ProfileScreenState extends State<ProfileScreen> {
             width: SizeHelper.w(97),
             height: SizeHelper.w(97),
             decoration: BoxDecoration(
-              color : Color.fromRGBO(171, 245, 174, 1).withValues(alpha: 0.48),
+              color : Color.fromRGBO(171, 245, 174, 1),
               shape: BoxShape.circle
               ),
             child: Center(
@@ -94,13 +94,17 @@ class ProfileScreenState extends State<ProfileScreen> {
         Positioned(
           top: SizeHelper.h(243),
           left: SizeHelper.w(149),
-          child:  Text('Your name', textAlign: TextAlign.center, style: TextStyle(
+          child: SizedBox(
+            width: SizeHelper.w(92),
+            height: SizeHelper.h(24),
+          child: Text('Your name', textAlign: TextAlign.center, style: TextStyle(
             color: Color.fromRGBO(0, 0, 0, 1),
             fontFamily: 'Poppins',
             fontSize: SizeHelper.w(16),
             letterSpacing: 0,
             fontWeight: FontWeight.normal,
             height: 1
+                ),
               ),
             )
           ),
@@ -108,6 +112,9 @@ class ProfileScreenState extends State<ProfileScreen> {
         Positioned(
           top: SizeHelper.h(294),
           left: SizeHelper.w(73),
+          child: SizedBox(
+            width: SizeHelper.w(39),
+            height: SizeHelper.h(16),
           child: Text('Level', textAlign: TextAlign.center, style: TextStyle(
             color: Color.fromRGBO(0, 0, 0, 1),
             fontFamily: 'Poppins',
@@ -115,6 +122,7 @@ class ProfileScreenState extends State<ProfileScreen> {
             letterSpacing: 0,
             fontWeight: FontWeight.normal,
             height: 1
+                ),
               ),
             )
           ),
@@ -123,7 +131,7 @@ class ProfileScreenState extends State<ProfileScreen> {
           top: SizeHelper.h(319),
           left: SizeHelper.w(74),
           child: SizedBox(
-            width: SizeHelper.w(38),
+            width: SizeHelper.w(39),
             height: SizeHelper.h(16),
             child: Text('1', textAlign: TextAlign.center, style: TextStyle(
               color: Color.fromRGBO(0, 0, 0, 1),
@@ -140,6 +148,9 @@ class ProfileScreenState extends State<ProfileScreen> {
         Positioned(
           top: SizeHelper.h(294),
           left: SizeHelper.w(152),
+          child: SizedBox(
+            width: SizeHelper.w(85),
+            height: SizeHelper.h(16),
           child: Text('Achievements', textAlign: TextAlign.center, style: TextStyle(
             color: Color.fromRGBO(0, 0, 0, 1),
             fontFamily: 'Poppins',
@@ -147,6 +158,7 @@ class ProfileScreenState extends State<ProfileScreen> {
             letterSpacing: 0,
             fontWeight: FontWeight.normal,
             height: 1
+                ),
               ),
             )
           ),
@@ -172,6 +184,9 @@ class ProfileScreenState extends State<ProfileScreen> {
         Positioned(
           top: SizeHelper.h(294),
           left: SizeHelper.w(263),
+          child: SizedBox(
+            width: SizeHelper.w(68),
+            height: SizeHelper.h(16),
           child: Text('Points', textAlign: TextAlign.center, style: TextStyle(
             color: Color.fromRGBO(0, 0, 0, 1),
             fontFamily: 'Poppins',
@@ -179,6 +194,7 @@ class ProfileScreenState extends State<ProfileScreen> {
             letterSpacing: 0,
             fontWeight: FontWeight.normal,
             height: 1
+                ),
               ),
             )
           ),
@@ -231,8 +247,11 @@ class ProfileScreenState extends State<ProfileScreen> {
           ),
         // Account Text
         Positioned(
-          top: SizeHelper.h(468),
+          top: SizeHelper.h(471),
           left: SizeHelper.w(85),
+          child: SizedBox(
+            width: SizeHelper.w(153),
+            height: SizeHelper.h(18),
           child: Text('Account', textAlign: TextAlign.left, style: TextStyle(
             color: Color.fromRGBO(0, 0, 0, 1),
             fontFamily: 'Poppins',
@@ -240,6 +259,7 @@ class ProfileScreenState extends State<ProfileScreen> {
             letterSpacing: 0,
             fontWeight: FontWeight.normal,
             height: 1
+                ),
               ),
             )
           ),
@@ -258,7 +278,7 @@ class ProfileScreenState extends State<ProfileScreen> {
           ),
         // Redeem rewards Text
         Positioned(
-          top: SizeHelper.h(517),
+          top: SizeHelper.h(518),
           left: SizeHelper.w(85),
           child: Text('Redeem rewards', textAlign: TextAlign.left, style: TextStyle(
             color: Color.fromRGBO(0, 0, 0, 1),
@@ -312,7 +332,7 @@ class ProfileScreenState extends State<ProfileScreen> {
           ),
         // About us Text
         Positioned(
-          top: SizeHelper.h(619),
+          top: SizeHelper.h(621),
           left: SizeHelper.w(85),
           child: Text('About us', textAlign: TextAlign.left, style: TextStyle(
             color: Color.fromRGBO(0, 0, 0, 1),

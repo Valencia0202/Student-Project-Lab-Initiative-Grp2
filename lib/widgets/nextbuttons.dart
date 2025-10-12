@@ -14,7 +14,7 @@ class NextButtonAccountWidget extends StatelessWidget {
     SizeHelper.init(context);
 
     return Positioned(
-      top: SizeHelper.h(469),
+      top: SizeHelper.h(465),
       left: SizeHelper.w(339),
       child: GestureDetector(
         onTap: () {
@@ -46,7 +46,7 @@ class NextButtonRedeemRewardsWidget extends StatelessWidget {
     SizeHelper.init(context);
 
     return Positioned(
-      top: SizeHelper.h(519),
+      top: SizeHelper.h(515),
       left: SizeHelper.w(339),
       child: GestureDetector(
         onTap: () {
@@ -78,7 +78,7 @@ class NextButtonAchievementsWidget extends StatelessWidget {
     SizeHelper.init(context);
 
     return Positioned(
-      top: SizeHelper.h(569),
+      top: SizeHelper.h(565),
       left: SizeHelper.w(339),
       child: GestureDetector(
         onTap: () {
