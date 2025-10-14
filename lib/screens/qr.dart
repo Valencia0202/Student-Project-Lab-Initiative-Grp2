@@ -24,7 +24,12 @@ class QRScreenState extends State<QRScreen> with WidgetsBindingObserver {
   CameraController? _controller;
   List<CameraDescription>? _cameras;
   bool _isInitialized = false;
+
+  // If you plan to ask/check permissions dynamically, remove final and update accordingly.
   final bool _permissionGranted = true;
+
+  // New: prevents concurrent init calls
+  bool _isInitializing = false;
 
   @override
   void initState() {
@@ -49,53 +54,173 @@ class QRScreenState extends State<QRScreen> with WidgetsBindingObserver {
     }
   }
 
-  Future<void> _initCamera() async {
-    try {
-      _cameras = await availableCameras();
-      if (_cameras == null || _cameras!.isEmpty) return;
-
-      final camera = _cameras!.firstWhere(
-        (c) => c.lensDirection == CameraLensDirection.back,
-        orElse: () => _cameras!.first,
-      );
-
-      _controller = CameraController(camera, ResolutionPreset.medium, enableAudio: false);
-      await _controller!.initialize();
-      if (!mounted) return;
-      setState(() => _isInitialized = true);
-    } catch (e) {
-      debugPrint('Camera init error: $e');
-    }
-  }
-
   @override
   void dispose() {
     WidgetsBinding.instance.removeObserver(this);
-    _controller?.dispose();
+    // ensure proper disposal
+    _disposeController();
     super.dispose();
   }
 
+  // Use an async handler so we can await properly
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
-    final controller = _controller;
-    if (controller == null || !controller.value.isInitialized) return;
+    // Delegate to an async function (don't mark the override async)
+    _handleAppLifecycleState(state);
+  }
 
-    if (state == AppLifecycleState.inactive) {
-      controller.dispose();
-    } else if (state == AppLifecycleState.resumed) {
-      _initCamera();
+  Future<void> _handleAppLifecycleState(AppLifecycleState state) async {
+    final controller = _controller;
+    if (controller == null) return;
+
+    try {
+      if (state == AppLifecycleState.inactive ||
+          state == AppLifecycleState.paused) {
+        // dispose and null to avoid stale references
+        await controller.dispose();
+        _controller = null;
+        setState(() {
+          _isInitialized = false;
+        });
+      } else if (state == AppLifecycleState.resumed) {
+        // Re-init if needed (deferred, _initCamera is guarded)
+        await _initCamera();
+      }
+    } catch (e, st) {
+      debugPrint('Lifecycle handling error: $e\n$st');
     }
   }
 
-  Future<void> _switchCamera() async {
-    if (_cameras == null || _cameras!.length < 2) return;
-    final current = _controller!.description;
-    final newCamera = _cameras!.firstWhere((c) => c.name != current.name, orElse: () => _cameras!.first);
+  Future<void> _disposeController() async {
+  try {
+    if (_controller != null) {
+      debugPrint('Disposing controller for: ${_controller!.description.name}');
+    }
     await _controller?.dispose();
-    _controller = CameraController(newCamera, ResolutionPreset.medium, enableAudio: false);
-    await _controller!.initialize();
-    if (!mounted) return;
-    setState(() {});
+  } catch (e, st) {
+    debugPrint('Error while disposing controller: $e\n$st');
+  } finally {
+    _controller = null;
+    _isInitialized = false;
+  }
+  // small delay to let browser release device (helps prevent NotReadable)
+  await Future.delayed(const Duration(milliseconds: 350));
+}
+
+  Future<void> _initCamera() async {
+  if (!mounted) return;
+  if (!_permissionGranted) {
+    debugPrint('Camera permission not granted — skip init');
+    return;
+  }
+  if (_isInitializing) {
+    debugPrint('Camera init already in progress — skipping duplicate call');
+    return;
+  }
+
+  _isInitializing = true;
+  try {
+    // ensure any previous controller is fully disposed and browser has time to release device
+    await _disposeController();
+    await Future.delayed(const Duration(milliseconds: 450)); // extra safety
+
+    // list cameras and log them
+    _cameras = await availableCameras();
+    debugPrint('availableCameras() -> ${_cameras?.length ?? 0}');
+    if (_cameras != null) {
+      for (var c in _cameras!) {
+        debugPrint('  camera: name="${c.name}", lens=${c.lensDirection}');
+      }
+    }
+
+    if (_cameras == null || _cameras!.isEmpty) {
+      debugPrint('No cameras found');
+      return;
+    }
+
+    // Force: pick first camera only (avoid lensDirection selection)
+    final chosen = _cameras!.first;
+    debugPrint('Chosen camera (forced first): ${chosen.name} (lens ${chosen.lensDirection})');
+
+    const int maxAttempts = 3;
+    for (int attempt = 1; attempt <= maxAttempts; attempt++) {
+      try {
+        _controller = CameraController(
+          chosen,
+          ResolutionPreset.medium,
+          enableAudio: false,
+          imageFormatGroup: ImageFormatGroup.jpeg,
+        );
+
+        debugPrint('Initializing controller (attempt $attempt)...');
+        await _controller!.initialize();
+        debugPrint('Controller initialized (attempt $attempt).');
+        break;
+      } on CameraException catch (e, st) {
+        debugPrint('CameraException attempt $attempt: code=${e.code}, desc=${e.description}');
+        debugPrint('Stack: $st');
+
+        if (e.code == 'cameraNotReadable' && attempt < maxAttempts) {
+          debugPrint('cameraNotReadable -> dispose & wait then retry');
+          await _disposeController();
+          await Future.delayed(const Duration(milliseconds: 500));
+          continue;
+        } else {
+          rethrow;
+        }
+      }
+    }
+
+    if (_controller == null) {
+      debugPrint('Controller is null after attempts');
+      return;
+    }
+
+    if (!mounted) {
+      await _disposeController();
+      return;
+    }
+
+    setState(() {
+      _isInitialized = true;
+    });
+    debugPrint('Camera init done, isInitialized=$_isInitialized');
+  } on CameraException catch (e, st) {
+    debugPrint('CameraException final: code=${e.code}, desc=${e.description}');
+    debugPrint('Stack: $st');
+    if (mounted) setState(() => _isInitialized = false);
+  } catch (e, st) {
+    debugPrint('Unknown error in _initCamera: $e\n$st');
+    if (mounted) setState(() => _isInitialized = false);
+  } finally {
+    _isInitializing = false;
+  }
+}
+
+
+  Future<void> _switchCamera() async {
+    if (_cameras == null || (_cameras?.length ?? 0) < 2) return;
+    final current = _controller?.description;
+    final newCamera = _cameras!.firstWhere(
+      (c) => c.name != current?.name,
+      orElse: () => _cameras!.first,
+    );
+
+    // Proper disposal and re-init
+    await _disposeController();
+    _controller = CameraController(newCamera, ResolutionPreset.medium,
+        enableAudio: false, imageFormatGroup: ImageFormatGroup.jpeg);
+
+    try {
+      await _controller!.initialize();
+      if (!mounted) {
+        await _disposeController();
+        return;
+      }
+      setState(() {});
+    } on CameraException catch (e, st) {
+      debugPrint('Error switching camera: ${e.code} ${e.description}\n$st');
+    }
   }
 
   @override
@@ -107,7 +232,6 @@ class QRScreenState extends State<QRScreen> with WidgetsBindingObserver {
     }
 
     return Scaffold(
-      backgroundColor: Colors.black,
       body: Stack(
         children: <Widget>[
           if (_isInitialized && _controller != null)

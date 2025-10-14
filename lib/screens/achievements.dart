@@ -19,7 +19,7 @@ class AchievementsScreen extends StatelessWidget {
             const BackButtonProfileWidget(),
           // Achievements text
           Positioned(
-            top: SizeHelper.h(50),
+            top: SizeHelper.h(52),
             left: SizeHelper.w(118),
             child: SizedBox(
               width: SizeHelper.w(153),
@@ -30,7 +30,7 @@ class AchievementsScreen extends StatelessWidget {
                 fontSize: SizeHelper.w(16),
                 letterSpacing: 0,
                 fontWeight: FontWeight.w600, //semibold
-                height: 1
+                height: 1.5
                 ),
               ),
             )
@@ -70,13 +70,13 @@ class AchievementsScreen extends StatelessWidget {
               fontSize: SizeHelper.w(13),
               letterSpacing: 0,
               fontWeight: FontWeight.normal,
-              height: 1
+              height: 1.5
               ),
             )
           ),
         ),
         Positioned(
-          top: SizeHelper.h(133),
+          top: SizeHelper.h(131),
           left: SizeHelper.w(248),
           child: SizedBox(
             width: SizeHelper.w(58),
@@ -87,7 +87,7 @@ class AchievementsScreen extends StatelessWidget {
               fontSize: SizeHelper.w(20),
               letterSpacing: 0,
               fontWeight: FontWeight.bold,
-              height: 1
+              height: 1.5
                 ),
               ),
             )
@@ -133,7 +133,7 @@ class AchievementsScreen extends StatelessWidget {
               fontSize: SizeHelper.w(10),
               letterSpacing: 0,
               fontWeight: FontWeight.w600,
-              height: 1
+              height: 1.5
                 ),
               ),
             )
@@ -150,7 +150,7 @@ class AchievementsScreen extends StatelessWidget {
               fontSize: SizeHelper.w(7),
               letterSpacing: 0,
               fontWeight: FontWeight.normal,
-              height: 1
+              height: 1.5
                 ),
               ),
             )

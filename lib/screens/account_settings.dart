@@ -270,13 +270,65 @@ class AccountScreen extends StatelessWidget {
             'assets/icons/twitter.svg',
             width: SizeHelper.w(24.49),
             height: SizeHelper.h(22.19),
-            semanticsLabel: 'twitter icon'
+            semanticsLabel: 'twitter icon',
             ),
           ),
-        ],
       // link and unlink buttons
-      
-
+        Positioned(
+          top: SizeHelper.h(550),
+          left: SizeHelper.h(312),
+          child: SizedBox(
+            width: SizeHelper.w(28),
+            height: SizeHelper.h(18),
+            child: Text('Link', textAlign: TextAlign.right, style: TextStyle(
+              color: Color.fromRGBO(0, 0, 0, 1),
+              fontFamily: 'Poppins',
+              fontSize: SizeHelper.w(12),
+              letterSpacing: 0,
+              fontWeight: FontWeight.normal,
+              decoration: TextDecoration.underline,
+              height: 1.5
+                ),
+              ),
+            )
+          ),
+        Positioned(
+          top: SizeHelper.h(630),
+          left: SizeHelper.h(312),
+          child: SizedBox(
+            width: SizeHelper.w(28),
+            height: SizeHelper.h(18),
+          child: Text('Link', textAlign: TextAlign.right, style: TextStyle(
+            color: Color.fromRGBO(0, 0, 0, 1),
+            fontFamily: 'Poppins',
+            fontSize: SizeHelper.w(12),
+            letterSpacing: 0,
+            fontWeight: FontWeight.normal,
+            decoration: TextDecoration.underline,
+            height: 1.5
+                ),
+              ),
+            )
+          ),
+        Positioned(
+          top: SizeHelper.h(706),
+          left: SizeHelper.h(312),
+          child: SizedBox(
+            width: SizeHelper.w(42),
+            height: SizeHelper.h(18),
+          child: Text('Unlink', textAlign: TextAlign.right, style: TextStyle(
+            color: Color.fromRGBO(0, 0, 0, 1),
+            fontFamily: 'Poppins',
+            fontSize: SizeHelper.w(12),
+            letterSpacing: 0,
+            fontWeight: FontWeight.normal,
+            decoration: TextDecoration.underline,
+            height: 1.5
+                ),
+              ),
+            )
+          ),
+        ],
       // Taskbar
 
       

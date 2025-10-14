@@ -156,24 +156,24 @@ class GettingStartedScreen extends StatelessWidget {
     // email text field
     Positioned(
       top: SizeHelper.h(339),
-      height: SizeHelper.w(34),
+      left: SizeHelper.w(34),
       child: EmailField(),
     ),
     // username text field
     Positioned(
       top: SizeHelper.h(419),
-      height: SizeHelper.w(34),
+      left: SizeHelper.w(34),
       child: NameField(),
     ),
     // password text field
    Positioned(
       top: SizeHelper.h(499),
-      height: SizeHelper.w(34), // TODO: invisible/visible still WIP
+      left: SizeHelper.w(34), // TODO: invisible/visible still WIP
       child: PasswordField(),
     ),
     // remember me 
       Positioned(
-        top: SizeHelper.h(583),
+        top: SizeHelper.h(586),
         left: SizeHelper.w(67),
         child: SizedBox(
           width: SizeHelper.w(109),

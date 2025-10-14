@@ -18,15 +18,19 @@ class RedeemRewardsScreen extends StatelessWidget {
             const BackButtonProfileWidget(),
           // Redeem rewards text
           Positioned(
-            top: SizeHelper.h(50),
+            top: SizeHelper.h(52),
             left: SizeHelper.w(118),
-            child:  Text('Redeem rewards', textAlign: TextAlign.center, style: TextStyle(
-              color: Color.fromRGBO(0, 0, 0, 1),
-              fontFamily: 'Poppins',
-              fontSize: SizeHelper.w(16),
-              letterSpacing: 0,
-              fontWeight: FontWeight.w600, //semibold
-              height: 1
+            child: SizedBox(
+              width: SizeHelper.w(153),
+              height: SizeHelper.h(24),
+              child:  Text('Redeem rewards', textAlign: TextAlign.center, style: TextStyle(
+                color: Color.fromRGBO(0, 0, 0, 1),
+                fontFamily: 'Poppins',
+                fontSize: SizeHelper.w(16),
+                letterSpacing: 0,
+                fontWeight: FontWeight.w600, //semibold
+                height: 1.5
+                ),
               ),
             )
           ), 
@@ -65,13 +69,13 @@ class RedeemRewardsScreen extends StatelessWidget {
               fontSize: SizeHelper.w(13),
               letterSpacing: 0,
               fontWeight: FontWeight.normal,
-              height: 1
+              height: 1.5
                 ),
               ),
             )
           ),
         Positioned(
-          top: SizeHelper.h(133),
+          top: SizeHelper.h(132),
           left: SizeHelper.w(248),
           child: SizedBox(
             width: SizeHelper.w(58),
@@ -82,7 +86,7 @@ class RedeemRewardsScreen extends StatelessWidget {
             fontSize: SizeHelper.w(20),
             letterSpacing: 0,
             fontWeight: FontWeight.bold,
-            height: 1
+            height: 1.5
                 ),
               ),
             )
@@ -121,8 +125,8 @@ class RedeemRewardsScreen extends StatelessWidget {
               fontFamily: 'Poppins',
               fontSize: SizeHelper.w(10),
               letterSpacing: 0,
-              fontWeight: FontWeight.normal,
-              height: 1
+              fontWeight: FontWeight.w600,
+              height: 1.5
               ),
             )
           ),
@@ -135,7 +139,7 @@ class RedeemRewardsScreen extends StatelessWidget {
             fontSize: SizeHelper.w(7),
             letterSpacing: 0,
             fontWeight: FontWeight.normal,
-            height: 1
+            height: 1.5
               ),
             )
           ),
@@ -155,7 +159,7 @@ class RedeemRewardsScreen extends StatelessWidget {
                   fontFamily: 'Poppins',
                   fontSize: SizeHelper.w(10),
                   letterSpacing: 0,
-                  fontWeight: FontWeight.w600,
+                  fontWeight: FontWeight.normal,
                   height: 1
                   ),
                 )
@@ -196,7 +200,7 @@ class RedeemRewardsScreen extends StatelessWidget {
               fontSize: SizeHelper.w(10),
               letterSpacing: 0,
               fontWeight: FontWeight.w600,
-              height: 1
+              height: 1.5
               ),
             )
           ),
@@ -209,7 +213,7 @@ class RedeemRewardsScreen extends StatelessWidget {
             fontSize: SizeHelper.w(7),
             letterSpacing: 0,
             fontWeight: FontWeight.normal,
-            height: 1
+            height: 1.5
               ),
             )
           ),
@@ -269,8 +273,8 @@ class RedeemRewardsScreen extends StatelessWidget {
               fontFamily: 'Poppins',
               fontSize: SizeHelper.w(10),
               letterSpacing: 0,
-              fontWeight: FontWeight.normal,
-              height: 1
+              fontWeight: FontWeight.w600,
+              height: 1.5
               ),
             )
           ),
@@ -283,7 +287,7 @@ class RedeemRewardsScreen extends StatelessWidget {
             fontSize: SizeHelper.w(7),
             letterSpacing: 0,
             fontWeight: FontWeight.normal,
-            height: 1
+            height: 1.5
               ),
             )
           ),
@@ -303,7 +307,7 @@ class RedeemRewardsScreen extends StatelessWidget {
                   fontFamily: 'Poppins',
                   fontSize: SizeHelper.w(10),
                   letterSpacing: 0,
-                  fontWeight: FontWeight.w600,
+                  fontWeight: FontWeight.normal,
                   height: 1
                   ),
                 )
@@ -343,8 +347,8 @@ class RedeemRewardsScreen extends StatelessWidget {
               fontFamily: 'Poppins',
               fontSize: SizeHelper.w(10),
               letterSpacing: 0,
-              fontWeight: FontWeight.normal,
-              height: 1
+              fontWeight: FontWeight.w600,
+              height: 1.5
               ),
             )
           ),
@@ -357,7 +361,7 @@ class RedeemRewardsScreen extends StatelessWidget {
             fontSize: SizeHelper.w(7),
             letterSpacing: 0,
             fontWeight: FontWeight.normal,
-            height: 1
+            height: 1.5
               ),
             )
           ),
@@ -377,7 +381,7 @@ class RedeemRewardsScreen extends StatelessWidget {
                   fontFamily: 'Poppins',
                   fontSize: SizeHelper.w(10),
                   letterSpacing: 0,
-                  fontWeight: FontWeight.w600,
+                  fontWeight: FontWeight.normal,
                   height: 1
                   ),
                 )
@@ -387,7 +391,7 @@ class RedeemRewardsScreen extends StatelessWidget {
         // More coming soon text
         Positioned(
           top: SizeHelper.h(700),
-          width: SizeHelper.w(124),
+          left: SizeHelper.w(124),
           child: SizedBox(
             width: SizeHelper.w(142),
             height: SizeHelper.h(16),

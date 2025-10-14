@@ -106,7 +106,7 @@ class EmailFieldState extends State<EmailField> {
                               'Enter your email',
                               style: TextStyle(
                                 fontFamily: 'Poppins',
-                                fontSize: SizeHelper.h(15),
+                                fontSize: SizeHelper.h(10),
                                 color: Colors.grey[700],
                               ),
                             ),
@@ -120,7 +120,7 @@ class EmailFieldState extends State<EmailField> {
                             cursorHeight: SizeHelper.h(18),
                             style: TextStyle(
                               fontFamily: 'Poppins',
-                              fontSize: SizeHelper.h(15),
+                              fontSize: SizeHelper.h(10),
                               color: Colors.black87,
                             ),
                             decoration: const InputDecoration(
@@ -294,7 +294,7 @@ class NameFieldState extends State<NameField> {
   }
 }
 
-// name text field
+// password text field
 class PasswordField extends StatefulWidget {
   const PasswordField({super.key});
 
