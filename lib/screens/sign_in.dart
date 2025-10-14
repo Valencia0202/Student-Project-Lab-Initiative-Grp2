@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SignInScreen extends StatefulWidget {
@@ -18,37 +17,19 @@ class _SignInScreenState extends State<SignInScreen> {
   Future<void> _signIn() async {
     setState(() => _isLoading = true);
 
-    try {
-      // 🔹 Sign in with Firebase
-      final userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(
-        email: _emailController.text.trim(),
-        password: _passwordController.text.trim(),
-      );
+    // Simulated login delay
+    await Future.delayed(const Duration(seconds: 1));
 
-      final user = userCredential.user;
+    // Simulated "remember me" storage
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setBool('remember_me', _rememberMe);
 
-      if (user != null) {
-        // 🔹 Save remember me state locally
-        final prefs = await SharedPreferences.getInstance();
-        await prefs.setBool('remember_me', _rememberMe);
+    if (!mounted) return;
 
-        if (!mounted) return;
-        Navigator.pushReplacementNamed(context, '/home');
-      }
-    } on FirebaseAuthException catch (e) {
-      String message = 'Login failed. Please try again.';
-      if (e.code == 'user-not-found') {
-        message = 'No user found for that email.';
-      } else if (e.code == 'wrong-password') {
-        message = 'Incorrect password.';
-      }
-      _showErrorDialog(message);
-    } catch (e) {
-      _showErrorDialog('Unable to connect. Please check your internet connection.');
-      debugPrint('Sign-in error: $e');
-    } finally {
-      if (mounted) setState(() => _isLoading = false);
-    }
+    // After "login", go to home screen
+    Navigator.pushReplacementNamed(context, '/home');
+
+    setState(() => _isLoading = false);
   }
 
   void _showErrorDialog(String message) {
@@ -70,47 +51,107 @@ class _SignInScreenState extends State<SignInScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.all(24.0),
-        child: Center(
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                const Text('Sign In',
-                    style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold)),
-                const SizedBox(height: 30),
-                TextField(
-                  controller: _emailController,
-                  decoration: const InputDecoration(labelText: 'Email'),
-                ),
-                const SizedBox(height: 16),
-                TextField(
-                  controller: _passwordController,
-                  obscureText: true,
-                  decoration: const InputDecoration(labelText: 'Password'),
-                ),
-                const SizedBox(height: 16),
-                Row(
-                  children: [
-                    Checkbox(
-                      value: _rememberMe,
-                      onChanged: (value) =>
-                          setState(() => _rememberMe = value ?? false),
+      backgroundColor: Colors.white,
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 32.0, vertical: 24.0),
+          child: Center(
+            child: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  // App logo (optional)
+                  Image.asset(
+                    'assets/images/logo.png',
+                    width: 120,
+                    height: 120,
+                  ),
+                  const SizedBox(height: 16),
+                  const Text(
+                    'Recyclens',
+                    style: TextStyle(
+                      fontSize: 28,
+                      fontWeight: FontWeight.bold,
+                      color: Color(0xFF00A86B),
                     ),
-                    const Text('Remember Me'),
-                  ],
-                ),
-                const SizedBox(height: 24),
-                _isLoading
-                    ? const CircularProgressIndicator()
-                    : ElevatedButton(
-                        onPressed: _signIn,
-                        style: ElevatedButton.styleFrom(
-                          minimumSize: const Size(double.infinity, 48),
-                        ),
-                        child: const Text('Sign In'),
+                  ),
+                  const SizedBox(height: 40),
+                  TextField(
+                    controller: _emailController,
+                    decoration: InputDecoration(
+                      labelText: 'Email',
+                      prefixIcon: const Icon(Icons.email_outlined, color: Color(0xFF00A86B)),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(12),
+                        borderSide: const BorderSide(color: Color(0xFF00A86B)),
                       ),
-              ],
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 20),
+                  TextField(
+                    controller: _passwordController,
+                    obscureText: true,
+                    decoration: InputDecoration(
+                      labelText: 'Password',
+                      prefixIcon: const Icon(Icons.lock_outline, color: Color(0xFF00A86B)),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(12),
+                        borderSide: const BorderSide(color: Color(0xFF00A86B)),
+                      ),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 12),
+                  Row(
+                    children: [
+                      Checkbox(
+                        activeColor: const Color(0xFF00A86B),
+                        value: _rememberMe,
+                        onChanged: (value) {
+                          setState(() => _rememberMe = value ?? false);
+                        },
+                      ),
+                      const Text('Remember me'),
+                    ],
+                  ),
+                  const SizedBox(height: 20),
+                  _isLoading
+                      ? const CircularProgressIndicator(color: Color(0xFF00A86B))
+                      : ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: const Color(0xFF00A86B),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(14),
+                            ),
+                            padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 40),
+                          ),
+                          onPressed: _signIn,
+                          child: const Text(
+                            'Sign In',
+                            style: TextStyle(
+                              fontSize: 18,
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                  const SizedBox(height: 16),
+                  TextButton(
+                    onPressed: () {
+                      Navigator.pushReplacementNamed(context, '/start');
+                    },
+                    child: const Text(
+                      'Back to Start',
+                      style: TextStyle(color: Color(0xFF00A86B)),
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
         ),

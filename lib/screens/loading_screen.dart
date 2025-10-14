@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LoadingScreen extends StatefulWidget {
@@ -20,13 +19,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
     try {
       final prefs = await SharedPreferences.getInstance();
       final rememberMe = prefs.getBool('remember_me') ?? false;
-      final user = FirebaseAuth.instance.currentUser;
 
-      // 🔹 1. If "remember me" and user is logged in, go to home
-      if (rememberMe && user != null) {
-        Navigator.pushReplacementNamed(context, '/home');
-        return;
-      }
 
       // 🔹 2. Otherwise go to start/login
       Navigator.pushReplacementNamed(context, '/start');
@@ -41,7 +34,6 @@ class _LoadingScreenState extends State<LoadingScreen> {
       context: context,
       builder: (_) => AlertDialog(
         title: const Text('Network Error'),
-        content: const Text('Unable to connect to Firebase. Please try again.'),
         actions: [
           TextButton(
             onPressed: () {
