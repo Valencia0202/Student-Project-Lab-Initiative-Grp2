@@ -9,20 +9,34 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  firebase_auth: ^5.0.0
-  shared_preferences: ^2.0.15
 
-
+  # Core UI/Utility
   cupertino_icons: ^1.0.8
   flutter_svg: ^2.0.10+1
   device_preview: ^1.1.0
-  camera: ^0.11.2
-  camera_web: ^0.3.4
-  flutter_polygon: ^0.3.0+2
   http: ^1.2.0
-  path: ^1.9.0
 
+  # Camera/Media (Using the higher version for camera_web)
+  camera: ^0.11.2
+  camera_web: ^0.3.5
+  image_picker: ^1.2.0 # From Snippet 1
 
+  # Location/File System
+  path: ^1.9.0 # From Snippet 1
+  path_provider: ^2.1.2 # From Snippet 2
+
+  # Authentication (Using the newer major version)
+  firebase_auth: ^5.0.0
+
+  # State Persistence (Using the newer major version)
+  shared_preferences: ^2.2.3
+
+  # Permissions (From Snippet 1)
+  permission_handler: ^11.3.1
+
+  # Other Utilities (From Snippet 1)
+  http_parser: ^4.0.2
+  flutter_polygon: ^0.3.0+2
 
 dev_dependencies:
   flutter_test:
