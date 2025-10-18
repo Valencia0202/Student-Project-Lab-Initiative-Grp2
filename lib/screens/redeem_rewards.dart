@@ -108,13 +108,12 @@ class RedeemRewardsScreen extends StatelessWidget {
             ),
           ),
         Positioned(
-            top: SizeHelper.h(249),
-            left: SizeHelper.w(56),
-            child: SvgPicture.asset(
-              'assets/icons/starbucks.svg',
-              width: SizeHelper.w(37),
-              height: SizeHelper.h(36.72), 
-              semanticsLabel: 'starbucks logo'
+            top: SizeHelper.h(246),
+            left: SizeHelper.w(26),
+            child: Image.asset(
+              'assets/images/starbucks.png',
+              width: SizeHelper.w(96),
+              height: SizeHelper.h(43), 
             ),
           ),
         Positioned(

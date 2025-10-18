@@ -84,7 +84,7 @@ class HomeScreenState extends State<HomeScreen> {
                           fontSize: SizeHelper.w(12),
                           letterSpacing: 0,
                           fontWeight: FontWeight.normal,
-                          height: 1
+                          height: 1.5
                           ),
                         )
                       ),
@@ -98,7 +98,7 @@ class HomeScreenState extends State<HomeScreen> {
                           fontSize: SizeHelper.w(16),
                           letterSpacing: 0,
                           fontWeight: FontWeight.normal,
-                          height: 1
+                          height: 1.5
                           ),
                         )
                       ),
@@ -279,10 +279,10 @@ class HomeScreenState extends State<HomeScreen> {
                       child: Text('Shared 4/5 times!', textAlign: TextAlign.left, style: TextStyle(
                         color: Color.fromRGBO(0, 0, 0, 1).withValues(alpha:0.6),
                         fontFamily: 'Poppins',
-                        fontSize: SizeHelper.w(8),
+                        fontSize: SizeHelper.w(6),
                         letterSpacing: 0,
                         fontWeight: FontWeight.normal,
-                        height: 1
+                        height: 1.5
                           ),
                         ),
                       )
