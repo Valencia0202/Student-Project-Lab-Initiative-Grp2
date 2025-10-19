@@ -138,7 +138,7 @@ class HomeScreenState extends State<HomeScreen> {
                           height: SizeHelper.h(6),
                           decoration: BoxDecoration(
                             borderRadius : BorderRadius.circular(21),
-                            color : Color.fromRGBO(160, 216, 162, 1),
+                            color : Color.fromRGBO(83, 129, 85, 1),
                             ),
                           )
                         ),

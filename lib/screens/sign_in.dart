@@ -1,160 +1,206 @@
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import '/widgets/backbutton_startscreen.dart';
+import '/widgets/checkbox.dart';
+import '/widgets/signin_button.dart';
+import '/widgets/textfields.dart';
+import '/tools/size_scaling.dart';
 
-class SignInScreen extends StatefulWidget {
+class SignInScreen extends StatelessWidget {
   const SignInScreen({super.key});
 
   @override
-  State<SignInScreen> createState() => _SignInScreenState();
-}
-
-class _SignInScreenState extends State<SignInScreen> {
-  final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
-  bool _isLoading = false;
-  bool _rememberMe = false;
-
-  Future<void> _signIn() async {
-    setState(() => _isLoading = true);
-
-    // Simulated login delay
-    await Future.delayed(const Duration(seconds: 1));
-
-    // Simulated "remember me" storage
-    final prefs = await SharedPreferences.getInstance();
-    await prefs.setBool('remember_me', _rememberMe);
-
-    if (!mounted) return;
-
-    // After "login", go to home screen
-    Navigator.pushReplacementNamed(context, '/home');
-
-    setState(() => _isLoading = false);
-  }
-
-  void _showErrorDialog(String message) {
-    showDialog(
-      context: context,
-      builder: (_) => AlertDialog(
-        title: const Text('Login Failed'),
-        content: Text(message),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: const Text('OK'),
-          )
-        ],
-      ),
-    );
-  }
-
-  @override
   Widget build(BuildContext context) {
+    SizeHelper.init(context);
+
     return Scaffold(
-      backgroundColor: Colors.white,
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 32.0, vertical: 24.0),
+      backgroundColor: const Color(0xFFA3DDA6),
+        body: Stack(
+          children: <Widget>[
+            // White box for sign up content
+            Positioned(
+            top: SizeHelper.h(84),
+            left: 0,
+            width: SizeHelper.width,
+            height: SizeHelper.h(760),
+            child: Container(
+              decoration: BoxDecoration(
+                color: Color.fromRGBO(251, 251, 251, 1),
+                borderRadius: BorderRadius.circular(27),
+              ),
+            ),
+          ),
+        // back button top left
+          const BackButtonStartWidget(),
+        // getting started text
+        Positioned(
+          top: SizeHelper.h(113),
+          left: SizeHelper.w(31),
+          child: Text('Getting started', textAlign: TextAlign.left, style: TextStyle(
+          color: Color.fromRGBO(0, 0, 0, 1),
+          fontFamily: 'Poppins',
+          fontSize: SizeHelper.w(24),
+          letterSpacing: 0,
+          fontWeight: FontWeight.normal,
+          height: 1
+              ),
+            )
+          ),
+        // google button
+        Positioned(
+          top: SizeHelper.h(184),
+          left: SizeHelper.w(32),
+          child: Container(
+            width: SizeHelper.w(66),
+            height: SizeHelper.w(66),
+            decoration: BoxDecoration(
+              color : Color.fromRGBO(76, 175, 80, 1),
+              borderRadius : BorderRadius.circular(34),
+                ),
           child: Center(
-            child: SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  // App logo (optional)
-                  Image.asset(
-                    'assets/images/logo.png',
-                    width: 120,
-                    height: 120,
+            child: SvgPicture.asset(
+              'assets/icons/google.svg',
+              width: SizeHelper.w(24),
+              height: SizeHelper.h(27),
+              semanticsLabel: 'google icon',
                   ),
-                  const SizedBox(height: 16),
-                  const Text(
-                    'Recyclens',
-                    style: TextStyle(
-                      fontSize: 28,
-                      fontWeight: FontWeight.bold,
-                      color: Color(0xFF00A86B),
-                    ),
+                ),
+              ),
+            ),
+        // facebook button
+         Positioned(
+          top: SizeHelper.h(184),
+          left: SizeHelper.w(162),
+          child: Container(
+            width: SizeHelper.w(66),
+            height: SizeHelper.w(66),
+            decoration: BoxDecoration(
+              color : Color.fromRGBO(76, 175, 80, 1),
+              borderRadius : BorderRadius.circular(34),
+                ),
+          child: Center(
+            child: SvgPicture.asset(
+              'assets/icons/facebook.svg',
+              width: SizeHelper.w(25),
+              height: SizeHelper.w(25),
+              semanticsLabel: 'facebook icon',
                   ),
-                  const SizedBox(height: 40),
-                  TextField(
-                    controller: _emailController,
-                    decoration: InputDecoration(
-                      labelText: 'Email',
-                      prefixIcon: const Icon(Icons.email_outlined, color: Color(0xFF00A86B)),
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(12),
-                        borderSide: const BorderSide(color: Color(0xFF00A86B)),
-                      ),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                    ),
+                ),
+              ),
+            ),
+        // twitter button
+         Positioned(
+          top: SizeHelper.h(184),
+          left: SizeHelper.w(292),
+          child: Container(
+            width: SizeHelper.w(66),
+            height: SizeHelper.w(66),
+            decoration: BoxDecoration(
+              color : Color.fromRGBO(76, 175, 80, 1),
+              borderRadius : BorderRadius.circular(34),
                   ),
-                  const SizedBox(height: 20),
-                  TextField(
-                    controller: _passwordController,
-                    obscureText: true,
-                    decoration: InputDecoration(
-                      labelText: 'Password',
-                      prefixIcon: const Icon(Icons.lock_outline, color: Color(0xFF00A86B)),
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(12),
-                        borderSide: const BorderSide(color: Color(0xFF00A86B)),
-                      ),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                    ),
+            child: Center(
+            child: SvgPicture.asset(
+              'assets/icons/twitter.svg',
+              width: SizeHelper.w(24.49),
+              height: SizeHelper.w(24.49),
+              semanticsLabel: 'twitter icon',
                   ),
-                  const SizedBox(height: 12),
-                  Row(
-                    children: [
-                      Checkbox(
-                        activeColor: const Color(0xFF00A86B),
-                        value: _rememberMe,
-                        onChanged: (value) {
-                          setState(() => _rememberMe = value ?? false);
-                        },
-                      ),
-                      const Text('Remember me'),
-                    ],
-                  ),
-                  const SizedBox(height: 20),
-                  _isLoading
-                      ? const CircularProgressIndicator(color: Color(0xFF00A86B))
-                      : ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: const Color(0xFF00A86B),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(14),
-                            ),
-                            padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 40),
-                          ),
-                          onPressed: _signIn,
-                          child: const Text(
-                            'Sign In',
-                            style: TextStyle(
-                              fontSize: 18,
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ),
-                  const SizedBox(height: 16),
-                  TextButton(
-                    onPressed: () {
-                      Navigator.pushReplacementNamed(context, '/start');
-                    },
-                    child: const Text(
-                      'Back to Start',
-                      style: TextStyle(color: Color(0xFF00A86B)),
+                ),
+              ),
+            ),
+        // or text
+         Positioned(
+          top: SizeHelper.h(286),
+          left: SizeHelper.w(34),
+          child: SizedBox(
+            width: SizeHelper.w(322),
+            height: SizeHelper.h(20),
+            child: Stack(
+              children: <Widget>[
+                Positioned(
+                  top: SizeHelper.h(5.908),
+                  left: SizeHelper.w(154.83),
+                    child: Text('or', textAlign: TextAlign.center, style: TextStyle(
+                    color: Color.fromRGBO(3, 169, 244, 1),
+                    fontFamily: 'Poppins',
+                    fontSize: SizeHelper.w(13),
+                    letterSpacing: 0,
+                    fontWeight: FontWeight.normal,
+                    height: 1
+                ),
+              ),
+            ),
+            Positioned(
+            top: SizeHelper.h(12),
+            left: 0,
+            child: Container(
+              width: SizeHelper.w(143),
+              height: 0.5,
+              color: Color.fromRGBO(3, 169, 244, 1),
+              ),
+            ),
+           Positioned(
+            top: SizeHelper.h(12),
+            right: 0,
+            child: Container(
+              width: SizeHelper.w(143),
+              height: 0.5,
+              color: Color.fromRGBO(3, 169, 244, 1),  
                     ),
                   ),
                 ],
               ),
             ),
           ),
+        // username text field
+        Positioned(
+          top: SizeHelper.h(363),
+          left: SizeHelper.w(34),
+          child: NameField(),
         ),
+        // password text field
+        Positioned(
+            top: SizeHelper.h(448),
+            left: SizeHelper.w(34), // TODO: invisible/visible still WIP
+            child: PasswordField(),
+          ),
+        // remember me 
+          Positioned(
+            top: SizeHelper.h(540),
+            left: SizeHelper.w(67),
+            child: SizedBox(
+              width: SizeHelper.w(109),
+              height: SizeHelper.h(16),
+              child: Text('Remember me', textAlign: TextAlign.left, style: TextStyle(
+                color: Color.fromRGBO(0, 0, 0, 1).withValues(alpha: 0.69),
+                fontFamily: 'Poppins',
+                fontSize: SizeHelper.w(11),
+                letterSpacing: 0,
+                fontWeight: FontWeight.normal,
+                height: 1
+                  ),
+                )
+              ),
+            ),
+            // remember me checkbox
+            Positioned(
+              top: SizeHelper.h(533),
+              left: SizeHelper.w(34),
+              child: AnimatedSvgCheckbox(
+                size: SizeHelper.w(24),
+                initialValue: false,
+                uncheckedAsset: 'assets/icons/checkbox.svg',
+                checkedAsset: 'assets/icons/checkbox_checked.svg',
+                    ),
+                  ),
+          // create account button
+          Positioned(
+            top: SizeHelper.h(690),
+            left: SizeHelper.w(45),
+            child: SignInButton(),
+          ),
+        ],
       ),
     );
   }
