@@ -70,65 +70,6 @@ Chrome or Edge for web builds
 
 CMake installed for native integrations
 
-▶️ Installation & Setup
-
-Clone the repository:
-
-
-
-
-git clone https://github.com/Valencia0202/Student-Project-Lab-Initiative-Grp2.git cd Student-Project-Lab-Initiative-Grp2
-
-
-
-2. Install dependencies:
-   ```bash
-flutter pub get
-
-Run the project:
-
-Web:
-
-
-
-
-flutter run -d chrome
-
-   - Android:
-     ```bash
-flutter run -d android
-
-iOS:
-
-
-
-
-flutter run -d ios
-
-
-
-4. Run tests:
-   ```bash
-flutter test
-🤝 Contributing Guidelines
-🔀 Branch Strategy
-
-feature/<name> – New features
-
-bugfix/<name> – Issues and fixes
-
-update/<name> – Enhancements or revisions
-
-✅ Before Submitting a PR
-
-Ensure code is properly formatted
-
-Add comments for complex logic
-
-Update relevant documentation
-
-Request at least one peer review
-
 📅 Roadmap
 
 Future development plans include:
@@ -146,12 +87,8 @@ CI/CD pipeline
 Advanced scanning and verification logic
 
 👥 Team Members
-Role	Member
-UI/UX Lead	Add Name
-Backend & API Integration	Add Name
-Mobile Development	Add Name
-Native Module Developer (C++)	Add Name
-Documentation & Testing	Add Name
+Valencia, Keona, Jaron, Leighton
+
 📄 License
 
 This project is released under the MIT License.# Student-Project-Lab-Initiative-Grp2
