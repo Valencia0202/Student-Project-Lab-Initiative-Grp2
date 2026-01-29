@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EcoQuest - Recycling Game</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      padding: 20px;
+    }
+    .container { max-width: 1200px; margin: 0 auto; }
+    .header { text-align: center; color: white; margin-bottom: 30px; }
+    .header h1 {
+      font-size: 2.5em; margin-bottom: 10px;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    }
+    .stats-bar {
+      display: flex; justify-content: space-around;
+      background: rgba(255,255,255,0.95);
+      padding: 20px; border-radius: 15px;
+      margin-bottom: 20px; box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+    }
+    .stat { text-align: center; }
+    .stat-value { font-size: 2em; font-weight: bold; color: #667eea; }
+    .stat-label { color: #666; font-size: 0.9em; margin-top: 5px; }
+    .main-content {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 20px; margin-bottom: 20px;
+    }
+    .card {
+      background: rgba(255,255,255,0.95);
+      padding: 25px; border-radius: 15px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+    }
+    .card h2 { color: #667eea; margin-bottom: 20px; font-size: 1.5em; }
+    #video-container {
+      position: relative; background: #000;
+      border-radius: 10px; overflow: hidden; margin-bottom: 15px;
+    }
+    #webcam { width: 100%; height: auto; display: block; }
+    .canvas-overlay {
+      position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    }
+    .controls { display: flex; gap: 10px; flex-wrap: wrap; }
+    button {
+      flex: 1; padding: 12px 24px; border: none; border-radius: 8px;
+      font-size: 1em; cursor: pointer; transition: all 0.3s; font-weight: 600;
+    }
+    .btn-primary { background: #667eea; color: white; }
+    .btn-primary:hover {
+      background: #5568d3; transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(102,126,234,0.4);
+    }
+    .btn-secondary { background: #48bb78; color: white; }
+    .btn-secondary:hover {
+      background: #38a169; transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(72,187,120,0.4);
+    }
+    .btn-danger { background: #f56565; color: white; }
+    .btn-danger:hover { background: #e53e3e; }
+    button:disabled { opacity: 0.6; cursor: not-allowed; transform: none !important; }
+    .detection-log {
+      max-height: 300px; overflow-y: auto; margin-top: 15px;
+    }
+    .detection-item {
+      padding: 12px; background: #f7fafc; border-left: 4px solid #667eea;
+      margin-bottom: 10px; border-radius: 4px; animation: slideIn 0.3s ease-out;
+    }
+    @keyframes slideIn {
+      from { opacity: 0; transform: translateX(-20px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+    .detection-item strong { color: #667eea; }
+    .achievements {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+      gap: 15px;
+    }
+    .achievement {
+      text-align: center; padding: 15px; background: #f7fafc;
+      border-radius: 10px; transition: all 0.3s;
+    }
+    .achievement.unlocked {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white; transform: scale(1.05);
+    }
+    .achievement-icon { font-size: 2em; margin-bottom: 8px; }
+    .achievement-name { font-size: 0.85em; font-weight: 600; }
+    .status-message {
+      padding: 12px; border-radius: 8px; margin-top: 15px;
+      text-align: center; font-weight: 600;
+    }
+    .status-success { background: #c6f6d5; color: #22543d; }
+    .status-error { background: #fed7d7; color: #742a2a; }
+    .status-info { background: #bee3f8; color: #2c5282; }
+    .leaderboard { margin-top: 20px; }
+    .leaderboard-item {
+      display: flex; justify-content: space-between; padding: 12px;
+      background: #f7fafc; border-radius: 8px; margin-bottom: 8px;
+    }
+    @media (max-width: 768px) {
+      .main-content { grid-template-columns: 1fr; }
+    }
+    .progress-bar {
+      width: 100%; height: 20px; background: #e2e8f0;
+      border-radius: 10px; overflow: hidden; margin-top: 10px;
+    }
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+      transition: width 0.3s ease;
+    }
+    .api-indicator {
+      display: inline-block; padding: 5px 12px; background: #48bb78;
+      color: white; border-radius: 20px; font-size: 0.85em; margin-left: 10px;
+    }
+    .loading-spinner {
+      display: inline-block; width: 16px; height: 16px;
+      border: 3px solid rgba(255,255,255,0.3); border-radius: 50%;
+      border-top-color: white; animation: spin 1s linear infinite;
+      vertical-align: middle; margin-left: 8px;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>🌍 EcoQuest - Recycling Challenge</h1>
+      <p>Scan recyclables with your camera and earn points!<span class="api-indicator">✓ API Connected</span></p>
+    </div>
+
+    <div class="stats-bar">
+      <div class="stat">
+        <div class="stat-value" id="score">0</div>
+        <div class="stat-label">Points</div>
+      </div>
+      <div class="stat">
+        <div class="stat-value" id="items-recycled">0</div>
+        <div class="stat-label">Items Recycled</div>
+      </div>
+      <div class="stat">
+        <div class="stat-value" id="streak">0</div>
+        <div class="stat-label">Streak</div>
+      </div>
+      <div class="stat">
+        <div class="stat-value" id="level">1</div>
+        <div class="stat-label">Level</div>
+      </div>
+    </div>
+
+    <div class="main-content">
+      <div class="card">
+        <h2>📸 Camera Detection</h2>
+
+        <div id="video-container">
+          <video id="webcam" autoplay playsinline></video>
+          <canvas id="canvas" class="canvas-overlay"></canvas>
+        </div>
+
+        <div class="controls">
+          <button id="test-api-btn" class="btn-primary">🔌 Test API Connection</button>
+        </div>
+
+        <div style="margin-top:10px;" class="controls">
+          <input id="upload-input" type="file" accept="image/*" style="flex:2;padding:8px;border-radius:6px;border:1px solid #ddd;background:white;" />
+        </div>
+        <div style="margin-top:10px; text-align:center;">
+          <img id="upload-preview" src="" alt="" style="max-width:100%;max-height:160px;border-radius:8px;display:none;border:2px solid rgba(0,0,0,0.06);" />
+        </div>
+
+        <div class="controls" style="margin-top: 10px;">
+          <button id="start-btn" class="btn-primary">Start Camera</button>
+            <button id="detect-btn" class="btn-primary" disabled>📷 Detect Frame</button>
+          <button id="stop-btn" class="btn-danger" disabled>Stop Camera</button>
+        </div>
+
+        <div id="status"></div>
+        <div class="detection-log" id="detection-log"></div>
+      </div>
+
+      <div class="card">
+        <h2>🏆 Achievements</h2>
+        <div class="achievements" id="achievements"></div>
+
+        <h2 style="margin-top: 30px;">📊 Progress</h2>
+        <p>Next Level: <span id="next-level-points">100</span> points</p>
+        <div class="progress-bar">
+          <div class="progress-fill" id="progress-fill" style="width: 0%"></div>
+        </div>
+
+        <div class="leaderboard">
+          <h3>🎯 Your Stats</h3>
+          <div class="leaderboard-item">
+            <span>Total Scans</span>
+            <span id="total-scans">0</span>
+          </div>
+          <div class="leaderboard-item">
+            <span>Success Rate</span>
+            <span id="success-rate">0%</span>
+          </div>
+          <div class="leaderboard-item">
+            <span>Best Streak</span>
+            <span id="best-streak">0</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const API_CONFIG = {
+      endpoint: 'https://serverless.roboflow.com/val-u1av3/workflows/custom-workflow-2',
+      apiKey: 'e0KxVEu6mMlp7mefEKSD'
+    };
+
+    const achievements = [
+      { id: 'first',   name: 'First Step',  icon: '🌱', condition: s => s.itemsRecycled >= 1 },
+      { id: 'collector', name: 'Collector', icon: '♻️', condition: s => s.itemsRecycled >= 5 },
+      { id: 'expert',  name: 'Expert',     icon: '⭐', condition: s => s.itemsRecycled >= 10 },
+      { id: 'master',  name: 'Master',     icon: '🏆', condition: s => s.itemsRecycled >= 25 },
+      { id: 'streak5', name: 'Hot Streak', icon: '🔥', condition: s => s.streak >= 5 },
+      { id: 'level5',  name: 'Level Up',   icon: '📈', condition: s => s.level >= 5 }
+    ];
+
+    const gameState = {
+      score: 0,
+      itemsRecycled: 0,
+      streak: 0,
+      level: 1,
+      totalScans: 0,
+      successfulScans: 0,
+      bestStreak: 0
+    };
+
+    const unlockedAchievements = new Set();
+
+    const video = document.getElementById('webcam');
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+    const testApiBtn = document.getElementById('test-api-btn');
+    const startBtn = document.getElementById('start-btn');
+    const detectBtn = document.getElementById('detect-btn');
+    const stopBtn = document.getElementById('stop-btn');
+    const uploadInput = document.getElementById('upload-input');
+    const uploadPreview = document.getElementById('upload-preview');
+    const statusDiv = document.getElementById('status');
+    const detectionLog = document.getElementById('detection-log');
+
+    let stream = null;
+    let isDetecting = false;
+    let uploadedDataURL = null; // full data URL (including mime)
+    let uploadedBase64 = null;  // base64 payload without data: prefix
+
+    function initAchievements() {
+      const achievementsDiv = document.getElementById('achievements');
+      achievementsDiv.innerHTML = '';
+      achievements.forEach(a => {
+        const div = document.createElement('div');
+        div.className = 'achievement';
+        div.id = `achievement-${a.id}`;
+        div.innerHTML = `
+          <div class="achievement-icon">${a.icon}</div>
+          <div class="achievement-name">${a.name}</div>
+        `;
+        achievementsDiv.appendChild(div);
+      });
+    }
+
+    function updateUI() {
+      document.getElementById('score').textContent = gameState.score;
+      document.getElementById('items-recycled').textContent = gameState.itemsRecycled;
+      document.getElementById('streak').textContent = gameState.streak;
+      document.getElementById('level').textContent = gameState.level;
+      document.getElementById('total-scans').textContent = gameState.totalScans;
+      document.getElementById('best-streak').textContent = gameState.bestStreak;
+
+      const successRate = gameState.totalScans > 0
+        ? Math.round((gameState.successfulScans / gameState.totalScans) * 100)
+        : 0;
+      document.getElementById('success-rate').textContent = successRate + '%';
+
+      const pointsForNextLevel = gameState.level * 100;
+      const currentLevelPoints = gameState.score % pointsForNextLevel;
+      const progress = (currentLevelPoints / pointsForNextLevel) * 100;
+      document.getElementById('progress-fill').style.width = progress + '%';
+      document.getElementById('next-level-points').textContent = pointsForNextLevel;
+
+      achievements.forEach(a => {
+        if (!unlockedAchievements.has(a.id) && a.condition(gameState)) {
+          unlockedAchievements.add(a.id);
+          const elem = document.getElementById(`achievement-${a.id}`);
+          if (elem) elem.classList.add('unlocked');
+          showStatus(`🎊 Achievement Unlocked: ${a.name}`, 'success');
+        }
+      });
+    }
+
+    function showStatus(message, type = 'info') {
+      statusDiv.innerHTML = `<div class="status-message status-${type}">${message}</div>`;
+      setTimeout(() => {
+        if (statusDiv.innerHTML.includes(message)) statusDiv.innerHTML = '';
+      }, 3000);
+    }
+
+    function addToLog(item, confidence, points) {
+      const logItem = document.createElement('div');
+      logItem.className = 'detection-item';
+      const time = new Date().toLocaleTimeString();
+      logItem.innerHTML = `
+        <strong>${item}</strong> detected (${confidence}% confidence)<br>
+        <small>${time} • +${points} points</small>
+      `;
+      detectionLog.insertBefore(logItem, detectionLog.firstChild);
+      while (detectionLog.children.length > 5) {
+        detectionLog.removeChild(detectionLog.lastChild);
+      }
+    }
+
+    function canvasToBase64(c) {
+      return c.toDataURL('image/jpeg', 0.8).split(',')[1];
+    }
+
+    async function testApiConnection() {
+      const original = testApiBtn.textContent;
+      testApiBtn.innerHTML = '🔄 Testing<span class="loading-spinner"></span>';
+      testApiBtn.disabled = true;
+
+      try {
+        showStatus('🔌 Testing API connection...', 'info');
+        const testCanvas = document.createElement('canvas');
+        testCanvas.width = 100;
+        testCanvas.height = 100;
+        const tctx = testCanvas.getContext('2d');
+        tctx.fillStyle = 'white';
+        tctx.fillRect(0, 0, 100, 100);
+        const testImage = canvasToBase64(testCanvas);
+
+        const response = await fetch(API_CONFIG.endpoint, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            api_key: API_CONFIG.apiKey,
+            images: {
+              image: {
+                type: 'base64',
+                value: testImage
+              }
+            },
+            use_cache: true
+          })
+        });
+
+        const data = await response.json();
+        console.log('Test API response:', data);
+        showStatus(`✅ API Connected (status ${response.status})`, 'success');
+      } catch (err) {
+        showStatus('❌ API error: ' + err.message, 'error');
+      } finally {
+        testApiBtn.textContent = original;
+        testApiBtn.disabled = false;
+      }
+    }
+
+    async function startCamera() {
+      try {
+        stream = await navigator.mediaDevices.getUserMedia({
+          video: {
+            facingMode: 'environment',
+            width: { ideal: 1280 },
+            height: { ideal: 720 }
+          }
+        });
+        video.srcObject = stream;
+        video.onloadedmetadata = () => {
+          canvas.width = video.videoWidth;
+          canvas.height = video.videoHeight;
+        };
+        startBtn.disabled = true;
+        detectBtn.disabled = false;
+        stopBtn.disabled = false;
+        showStatus('✅ Camera started', 'success');
+      } catch (err) {
+        showStatus('❌ Camera error: ' + err.message, 'error');
+      }
+    }
+
+    function stopCamera() {
+      if (stream) {
+        stream.getTracks().forEach(t => t.stop());
+        video.srcObject = null;
+        stream = null;
+      }
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      startBtn.disabled = false;
+      detectBtn.disabled = true;
+      stopBtn.disabled = true;
+      showStatus('📷 Camera stopped', 'info');
+    }
+
+    async function detectItem(providedBase64 = null, providedDataURL = null) {
+      if (isDetecting) return;
+      isDetecting = true;
+
+      const usingUpload = !!providedBase64;
+      const original = detectBtn.textContent;
+      detectBtn.innerHTML = 'Detecting<span class="loading-spinner"></span>';
+      detectBtn.disabled = true;
+
+      try {
+        let base64Image;
+
+        if (providedBase64) {
+          // Draw uploaded image onto the canvas for visualization
+          await new Promise((resolve, reject) => {
+            const img = new Image();
+            img.onload = () => {
+              canvas.width = img.naturalWidth;
+              canvas.height = img.naturalHeight;
+              ctx.clearRect(0, 0, canvas.width, canvas.height);
+              ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+              resolve();
+            };
+            img.onerror = reject;
+            img.src = providedDataURL || ('data:image/jpeg;base64,' + providedBase64);
+          });
+          base64Image = providedBase64;
+        } else {
+          canvas.width = video.videoWidth;
+          canvas.height = video.videoHeight;
+          ctx.drawImage(video, 0, 0);
+          base64Image = canvasToBase64(canvas);
+        }
+
+        const payload = {
+          api_key: API_CONFIG.apiKey,
+          images: {
+            image: {
+              type: 'base64',
+              value: base64Image
+            }
+          },
+          // Server expects `inputs` to be an object/dictionary (not an array)
+          inputs: {
+            image: {
+              type: 'base64',
+              value: base64Image
+            }
+          },
+          use_cache: true
+        };
+
+        try {
+          console.log('Sending detection payload keys:', Object.keys(payload));
+          console.log('Uploaded image base64 length:', (payload.images && payload.images.image && payload.images.image.value) ? payload.images.image.value.length : 0);
+        } catch (e) {
+          console.warn('Failed to inspect payload size', e);
+        }
+
+        const response = await fetch(API_CONFIG.endpoint, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+
+        let data = null;
+        let rawText = null;
+        try {
+          rawText = await response.text();
+          console.log('Raw response text (truncated):', rawText && rawText.length > 2000 ? rawText.slice(0,2000) + '...[truncated]' : rawText);
+          try {
+            data = rawText ? JSON.parse(rawText) : null;
+          } catch (e) {
+            console.error('JSON.parse failed on response text', e);
+            data = null;
+          }
+        } catch (e) {
+          console.error('Failed to read response text', e);
+          showStatus('❌ Network/response read error', 'error');
+        }
+
+        console.log('Workflow response status:', response.status, response);
+        console.log('Workflow parsed body:', data);
+        gameState.totalScans++;
+
+        if (!response.ok) {
+          showStatus(`❌ API returned ${response.status}`, 'error');
+        }
+
+        // Try to find predictions in several common shapes
+        let predictions = [];
+        if (data) {
+          if (Array.isArray(data.outputs) && data.outputs.length > 0) {
+            // collect predictions from outputs entries (handle several nested shapes)
+            for (const out of data.outputs) {
+              if (!out) continue;
+              // common: out.predictions is an array
+              if (Array.isArray(out.predictions)) predictions.push(...out.predictions);
+              // some responses put predictions under out.results
+              else if (Array.isArray(out.results)) predictions.push(...out.results);
+              // some responses use an object wrapper: out.predictions.predictions
+              else if (out.predictions && Array.isArray(out.predictions.predictions)) predictions.push(...out.predictions.predictions);
+              // or out.results.predictions
+              else if (out.results && Array.isArray(out.results.predictions)) predictions.push(...out.results.predictions);
+            }
+          }
+          if (predictions.length === 0 && Array.isArray(data.predictions)) predictions = data.predictions;
+          if (predictions.length === 0 && Array.isArray(data.results)) predictions = data.results;
+          // some responses nest under data.outputs[0].predictions.predictions
+          if (predictions.length === 0 && data.outputs && data.outputs[0] && data.outputs[0].predictions && Array.isArray(data.outputs[0].predictions.predictions)) {
+            predictions = data.outputs[0].predictions.predictions;
+          }
+          // some APIs return { outputs: [{ predictions: { ... } }] } or nested objects
+          if (predictions.length === 0 && data.outputs && data.outputs[0] && typeof data.outputs[0] === 'object') {
+            const maybe = data.outputs[0].predictions || data.outputs[0].results || data.outputs[0].data;
+            if (Array.isArray(maybe)) predictions = maybe;
+          }
+        }
+
+        console.log('Predictions array (after broad parsing):', predictions);
+
+        // Optional debug image preview — uncomment to open the sent image in a new window
+        // window.open('data:image/jpeg;base64,' + base64Image);
+
+        if (predictions.length === 0) {
+          gameState.streak = 0;
+          showStatus('❌ No detections found', 'info');
+          updateUI();
+          return;
+        }
+
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        let itemsFound = 0;
+
+        predictions.forEach(det => {
+          let confidenceValue = det.confidence ?? det.score ?? det.probability ?? det.conf;
+          if (confidenceValue == null) confidenceValue = 0;
+          if (confidenceValue <= 1 && confidenceValue > 0) confidenceValue *= 100;
+          const confidence = Math.round(confidenceValue || 0);
+
+          const label =
+            det['class'] ??
+            det.label ??
+            det.name ??
+            det.class_name ??
+            det.predicted_class ??
+            'Item';
+
+          // Always count and display predictions regardless of confidence
+          itemsFound++;
+
+          if (det.x && det.y && det.width && det.height) {
+            ctx.strokeStyle = '#48bb78';
+            ctx.lineWidth = 3;
+            ctx.strokeRect(
+              det.x - det.width / 2,
+              det.y - det.height / 2,
+              det.width,
+              det.height
+            );
+            ctx.fillStyle = '#48bb78';
+            ctx.font = 'bold 16px Arial';
+            ctx.fillText(
+              `${label} ${confidence}%`,
+              det.x - det.width / 2,
+              det.y - det.height / 2 - 5
+            );
+          }
+
+          const points = confidence > 0
+            ? Math.max(10, Math.round(confidence / 10) * 10)
+            : 50;
+
+          gameState.score += points;
+          gameState.itemsRecycled++;
+          gameState.successfulScans++;
+          gameState.streak++;
+          if (gameState.streak > gameState.bestStreak) {
+            gameState.bestStreak = gameState.streak;
+          }
+
+          addToLog(label, confidence || 'N/A', points);
+        });
+
+        if (itemsFound > 0) {
+          showStatus(`✅ Found ${itemsFound} recyclable item(s)`, 'success');
+        } else {
+          gameState.streak = 0;
+          showStatus('🔍 Detections filtered out (low confidence)', 'info');
+        }
+
+        updateUI();
+      } catch (err) {
+        gameState.streak = 0;
+        showStatus('❌ Detection error: ' + err.message, 'error');
+      } finally {
+        isDetecting = false;
+        detectBtn.textContent = original;
+        detectBtn.disabled = false;
+      }
+    }
+
+    testApiBtn.addEventListener('click', testApiConnection);
+    startBtn.addEventListener('click', startCamera);
+    stopBtn.addEventListener('click', stopCamera);
+    detectBtn.addEventListener('click', () => {
+      // If both camera and upload available, ask which to use
+      if (stream && uploadedBase64) {
+        const useCamera = confirm('Detect camera frame? OK = camera, Cancel = use uploaded image');
+        if (useCamera) detectItem();
+        else detectItem(uploadedBase64, uploadedDataURL);
+        return;
+      }
+      if (stream) {
+        detectItem();
+        return;
+      }
+      if (uploadedBase64) {
+        detectItem(uploadedBase64, uploadedDataURL);
+        return;
+      }
+      showStatus('❌ No camera or uploaded image available', 'error');
+    });
+
+    uploadInput.addEventListener('change', async (ev) => {
+      const file = ev.target.files && ev.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = () => {
+        const result = reader.result;
+        if (typeof result === 'string') {
+            uploadedDataURL = result;
+            // strip prefix
+            const comma = result.indexOf(',');
+            uploadedBase64 = comma >= 0 ? result.slice(comma + 1) : result;
+            uploadPreview.src = result;
+            uploadPreview.style.display = 'block';
+            detectBtn.disabled = false;
+            showStatus('🖼️ Image loaded for detection', 'success');
+          }
+      };
+      reader.onerror = () => showStatus('❌ Failed to read file', 'error');
+      reader.readAsDataURL(file);
+    });
+
+    initAchievements();
+    updateUI();
+    console.log('EcoQuest initialized! API endpoint:', API_CONFIG.endpoint);
+  </script>
+</body>
+</html>
